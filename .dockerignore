@@ -1,0 +1,22 @@
+# Node dependencies
+node_modules
+
+# Build output
+dist
+build
+
+# VS Code settings
+.vscode
+
+# Git files
+.git
+.gitignore
+
+# Docker files (usually should NOT be ignored unless needed)
+# Only uncomment the next two lines if you don't want these copied into the image
+# Dockerfile
+# docker-compose.yml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
