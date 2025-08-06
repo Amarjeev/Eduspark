@@ -32,8 +32,7 @@ function TeacherProfile() {
         const subjectListData = await getFromIndexedDB('school-subjects-List-admin');
         if (subjectListData) setSubjectList(subjectListData);
       } catch (error) {
-        console.log("upload error :",error)
-        showError("Failed to load teacher data");
+        showError(" Unable to load teacher data. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -158,7 +157,6 @@ function TeacherProfile() {
       showError("Failed to delete account");
     }
   } catch (error) {
-    console.error("Delete error:", error);
     showError("Something went wrong while deleting the account");
   }
 };

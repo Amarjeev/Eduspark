@@ -43,11 +43,10 @@ function ClassWiseTimetableForTeacher() {
         dispatch(setTimetable({ className: selectedClass, data: response.data }));
         setLoading(false);
       } catch (error) {
-        console.error('❌ Error fetching timetable:', error);
         if (error.response?.data?.emptyData === true) {
           return sethide(false);
         }
-        alert('Failed to fetch timetable. Please try again.');
+          showError("Unable to fetch timetable. Please try again.");
       }
     };
 

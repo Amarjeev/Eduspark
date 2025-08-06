@@ -27,7 +27,6 @@ export const saveToIndexedDB = async (key, value) => {
     const encrypted = encryptData(value);
     await set(key, encrypted);
   } catch (error) {
-    console.error("❌ Error saving to IndexedDB:", error);
   }
 };
 
@@ -39,7 +38,6 @@ export const getFromIndexedDB = async (key) => {
     const decrypted = decryptData(encrypted);
     return decrypted;
   } catch (error) {
-    console.error("❌ Error reading from IndexedDB:", error);
     return null;
   }
 };
@@ -49,6 +47,5 @@ export const removeFromIndexedDB = async (key) => {
   try {
     await del(key);
   } catch (error) {
-    console.error("❌ Error deleting from IndexedDB:", error);
   }
 };

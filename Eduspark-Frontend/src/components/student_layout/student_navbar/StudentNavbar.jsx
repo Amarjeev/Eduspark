@@ -49,7 +49,7 @@ function StudentNavbar() {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        console.error("Failed to fetch profile data:", error);
+        showError("Failed to load profile data. Please try again.");
       }
     };
     fetchProfile();
@@ -69,8 +69,7 @@ function StudentNavbar() {
       // 🔁 Navigate to home/login
       navigate("/");
     } catch (error) {
-      console.error("❌ Logout failed:", error);
-      showError('Logout failed')
+      showError('Logout failed. Please try again.')
       // Optional: show toast or message to user
     }
   }

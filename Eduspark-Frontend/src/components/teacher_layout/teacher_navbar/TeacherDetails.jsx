@@ -51,9 +51,8 @@ const teacherData = await axios.get(
         setTeacherId(teacherData.data.userData._id);
         setTeacherProfile(teacherData.data.userData);
       } catch (error) {
-        console.error("Error fetching teacher profile:", error);
         setLoading(false)
-        showError("Error fetching teacher profile");
+        showError("Failed to load profile data. Please try again.");
       } finally {
         setLoading(false); // Stop loading indicator
       }
@@ -106,15 +105,12 @@ const teacherData = await axios.get(
         showSuccess("Updated successfully!");
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
       setLoading(false);
-
       // Handle duplicate email
       if (error.response && error.response.status === 409) {
-        return alert(error.response.data.error || "Email already exists.");
+        return showError("⚠️ Email already exists. Please use a different one.");
       }
-
-      showError("An unexpected error occurred while updating the profile.");
+      showError("Something went wrong while updating the profile. Please try again.");
     }
   };
 

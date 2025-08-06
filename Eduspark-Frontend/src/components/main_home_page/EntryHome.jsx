@@ -45,7 +45,6 @@ function EntryHome() {
     }
    } catch (error) {
      setLoading(false)
-    console.error("Error while checking UDISE Code:", error);
     showError('Something went wrong while verifying the code. Please try again later.');
   }
 };

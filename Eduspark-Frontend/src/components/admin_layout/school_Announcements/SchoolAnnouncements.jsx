@@ -46,7 +46,7 @@ const SchoolAnnouncements = () => {
           setMessage(draft.message || "");
         }
       } catch (error) {
-        console.error("Error loading draft:", error);
+        showError("Something went wrong. Please try again.");
       }
     };
     loadDraft();
@@ -77,7 +77,6 @@ const SchoolAnnouncements = () => {
        const pages = Math.ceil(response?.data?.count /10);
         setTotalPages(pages);
       } catch (error) {
-        console.error("Error fetching announcements:", error);
         showError("Failed to load announcements. Please try again.");
       } finally {
         setLoading(false);
@@ -125,7 +124,6 @@ const SchoolAnnouncements = () => {
           showSuccess("✏️ Announcement updated successfully!");
         }
       } catch (error) {
-        console.error("Error updating announcement:", error);
         setLoading(false)
         showError("Failed to update announcement. Please try again.");
       } finally {
@@ -146,8 +144,6 @@ const SchoolAnnouncements = () => {
           showSuccess("📢 Announcement created successfully!");
         }
       } catch (error) {
-        setLoading(false)
-        console.error("Error creating announcement:", error);
         showError("Failed to create announcement. Please try again.");
       } finally {
         setRefresh(true)
@@ -191,7 +187,6 @@ const SchoolAnnouncements = () => {
       }
     } catch (error) {
       setLoading(false)
-      console.error("Error deleting announcement:", error);
       showError("Failed to delete announcement. Please try again.");
     } finally {
       setRefresh(true)

@@ -76,7 +76,6 @@ function OTPVerify() {
           inputRefs.current[0]?.focus();
         }
       } catch (error) {
-        console.error("❌ Resend OTP error:", error);
         showError("Something went wrong while resending the OTP. Please try again.");
       } finally {
         setLoading(false);

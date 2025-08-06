@@ -14,7 +14,6 @@ const useStudentHomework = async (status, role, data) => {
       );
       return homeworkData.data;
     } catch (error) {
-      console.error("❌ Error fetching homework:", error);
       throw error;
     }
   }
@@ -29,7 +28,6 @@ const useStudentHomework = async (status, role, data) => {
       );
       return homeworkData.data;
     } catch (error) {
-      console.error("❌ Error submitting homework:", error);
       throw error;
     }
   }
@@ -43,7 +41,6 @@ const useStudentHomework = async (status, role, data) => {
       );
       return homeworkData.data.data; // ✅ Return only the answerText object
     } catch (error) {
-      console.error("❌ Error fetching submitted answer:", error);
       throw error;
     }
   }
@@ -58,7 +55,6 @@ const useVerifieddHomework = async (role,className,childrenId) => {
     });
     return response.data;
   } catch (error) {
-    console.error("❌ Error fetching verified homework:", error);
     return null; // or throw error if you want to handle it outside
   }
 };

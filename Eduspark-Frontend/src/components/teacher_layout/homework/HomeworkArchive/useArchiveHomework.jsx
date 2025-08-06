@@ -15,7 +15,6 @@ const useArchiveHomework = async (status,className,subjectName,startDate) => {
 
       return homeworkData.data;
     } catch (error) {
-      console.error("❌ Error fetching homework:", error);
       throw error;
     }
   }
@@ -31,7 +30,6 @@ const useHomeworkAnswer = async (status, id,role) => {
       return response.data.studentIds;
 
     } catch (error) {
-      console.error('❌ Error fetching student answer list:', error);
       throw error;
     }
   }
@@ -45,7 +43,6 @@ const useHomeworkAnswer = async (status, id,role) => {
       return response.data.data;
 
     } catch (error) {
-      console.error('❌ Error fetching student answer list:', error);
       throw error;
     }
   }
@@ -61,7 +58,6 @@ const useverifySubmittedAnswer = async (data) => {
     return response.data;
     
   } catch (error) {
-    console.error("❌ Error verifying submitted answer:", error);
     throw error; // Forward error to caller
   }
 };

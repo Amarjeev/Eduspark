@@ -101,17 +101,16 @@ export default function CreateFeeStructure() {
       withCredentials: true,
     }
      );
-     showSuccess("✅ Fee structure saved to backend.");
+     showSuccess(" Fee structure saved");
 }
 
       setFormData({ className: "", date: "", totalFee: "" });
       setDuplicateMessage("");
     } catch (error) {
-      console.error("❌ Failed to save fee structure:", error);
       if (error.response?.data?.duplicate) {
         return setDuplicateMessage(error.response.data.duplicate);
       }
-      showError("❌ Failed to save fee structure.");
+      showError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -152,8 +151,6 @@ export default function CreateFeeStructure() {
       const updated = feeStructures.filter((fee) => fee._id !== id);
       setFeeStructures(updated);
     } catch (error) {
-      console.error("❌ Error deleting fee structure:", error);
-      alert('❌ Failed to delete fee structure.');
       showError("❌ Failed to delete fee structure.");
     }
   };

@@ -7,6 +7,7 @@ import axios from "axios";
 import { BaseUrl } from "../../BaseUrl/BaseUrl";
 import { useParams } from 'react-router-dom';
 import PageWrapper from "../../PageWrapper";
+import { showError } from "../../utils/toast";
 
 // 🎯 Grade calculator based on percentage
 function getGrade(mark, total) {
@@ -34,8 +35,7 @@ export default function StudentProfile() {
         setProfile(response.data.profile || null);
         setMarks(response.data.marks || []);
       } catch (error) {
-        console.error("Failed to fetch student data:", error);
-        alert("⚠️ Failed to fetch student data. Please try again later.");
+        showError(" Failed to fetch student data. Please try again later.");
       }
     };
     fetchData();

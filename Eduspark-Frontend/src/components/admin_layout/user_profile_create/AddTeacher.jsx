@@ -231,15 +231,13 @@ useEffect(() => {
         setIsIdGenerated(false);
       }
     } catch (error) {
-      console.error("Error submitting form:",  error);
       if (error.response && error.response.status === 400) {
           const field = error.response.data.field;
         if (field === "email") {
-           showError("This email is already registered. Please use a different email.");
-           return;
-    }
+          showError("This email is already registered. Please use a different email.");
+          return;
+        }
       }
-
       showError('Error submitting form. Please try again.')
     } finally {
       setIsLoading(false); // Stop loading regardless of success/error

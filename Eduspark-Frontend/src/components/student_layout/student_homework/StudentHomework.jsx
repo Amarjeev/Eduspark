@@ -89,8 +89,7 @@ function StudentHomework() {
           setLoading(false);
         } catch (error) {
           setLoading(false);
-          console.error("❌ Error fetching answer:", error);
-          showError('Error fetching answer');
+          showError("Failed to load answer. Please try again.");
         }
       }
     };
@@ -109,8 +108,7 @@ function StudentHomework() {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        console.error("Homework fetch failed:", error);
-        showError('Homework fetch failed');
+        showError("Failed to load homework. Please try again.");
       }
     };
 
@@ -187,8 +185,7 @@ function StudentHomework() {
       }
     } catch (error) {
       setLoading(false);
-      console.error('Homework submit error:', error);
-      showError('🚫 Something went wrong while submitting homework.');
+      showError(" Failed to submit homework. Please try again.");
       return;
     }
 

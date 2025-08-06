@@ -79,7 +79,6 @@ const subjectNames = await redisClient.get(`subject-List:${udisecode}${employid}
     const timePattern =
       /^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM) to (0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/;
     if (!time || !timePattern.test(time.trim())) {
-      console.log("❌ Time must be in format: HH:MM AM/PM to HH:MM AM/PM.");
       errors.time = "❌ Time must be in format: HH:MM AM/PM to HH:MM AM/PM.";
     }
 

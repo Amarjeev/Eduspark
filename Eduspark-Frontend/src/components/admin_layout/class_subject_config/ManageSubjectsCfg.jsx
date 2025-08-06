@@ -48,7 +48,7 @@ function ManageSubjectsCfg() {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        console.error("❌ Error fetching subjects:", error);
+        showError("Something went wrong. Please try again.");
       }
       setDeleteSuccess(false); // 🔄 Reset delete flag after refresh
     };
@@ -106,7 +106,6 @@ function ManageSubjectsCfg() {
         setDuplicateSubjects([]);
       }
     } catch (error) {
-      console.error("Failed to save subjects:", error);
       if (error.response?.status === 409) {
         setLoading(false);
         return setDuplicateSubjects(error.response.data.duplicates); // ⚠️ Handle duplicates
@@ -137,11 +136,10 @@ function ManageSubjectsCfg() {
       if (response.data.status) return showSuccess('Subject updated');
     } catch (error) {
       setLoading(false);
-      console.error("❌ Error updating subject:", error);
       if (error.status === 409) {
-        return alert('❌ This subject already exists. Please choose a different name.');
+        return showError('❌ This subject already exists. Please choose a different name.');
       }
-      alert('❌ Error updating subject');
+      showError("Something went wrong. Please try again.");
     }
   };
 
@@ -167,8 +165,7 @@ function ManageSubjectsCfg() {
         showSuccess('🗑️ Subject deleted successfully');
       }
     } catch (error) {
-      console.error("❌ Error deleting subject:", error);
-      alert('❌ Failed to delete subject. Please try again.');
+      showError("Something went wrong. Please try again.");
     }
   };
 

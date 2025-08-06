@@ -29,7 +29,6 @@ function ExamMarks({ studentId }) {
         setError('No marks data found for the selected date.');
       }
     } catch (err) {
-      console.error('Error fetching student marks:', err);
       setError('Failed to fetch data. Please try again later.');
     }
   };

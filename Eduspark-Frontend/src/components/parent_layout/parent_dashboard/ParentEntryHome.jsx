@@ -38,8 +38,7 @@ function ParentEntryHome() {
         setStudentList(response?.data?.students)
         setSchoolName(response?.data?.students[0]?.schoolname || 'empty');
       } catch (error) {
-        console.error("Failed to fetch school name from IndexedDB:", error);
-        showError("Error loading data. Please try again in a moment.");
+        showError("Something went wrong. Please try again.");
           setTimeout(() => {
     navigate('/');
   }, 2000);

@@ -94,7 +94,6 @@ function ForgotPassword() {
       }
     } catch (error) {
       setLoading(false)
-      console.error("Error sending OTP:", error);
       if (error.response.data.success === 'not-found') {
         return showError("This email is not associated with any registered account.");
       } else if (error.response.data.success === "id-missing") {
@@ -125,7 +124,6 @@ function ForgotPassword() {
       }
     } catch (error) {
       setLoading(false)
-      console.error("OTP verification error:", error);
       if (error.response.data.success === "expire") {
         showError("Your OTP has expired. Please request a new one to continue.");
         return
@@ -181,7 +179,6 @@ function ForgotPassword() {
       if (error.response.data.success === "id-missing") {
         return navigate('/')
       }
-      console.error("Password reset error:", error);
       await removeFromIndexedDB('forgot-password-current-item');
       setCurrentItem('email');
       showError("Unable to reset password at the moment. Please try again later.");

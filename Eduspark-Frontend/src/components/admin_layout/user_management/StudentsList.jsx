@@ -62,7 +62,6 @@ function StudentsList() {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        console.error("Student Data fetching failed:", error);
         setFetchError("Failed to load students. Please try again.");
         showError("Failed to load student data");
       }
@@ -247,11 +246,9 @@ if (!updatedStudent.dob) {
         );
         showSuccess("Student updated successfully!");
         setEditingStudent(null);
-      } else {
-        showError(response.data.message || "Failed to update student");
       }
     } catch (error) {
-      console.error("Failed to update student:", error);
+       setLoading(false);
       showError("Failed to update student. Please try again.");
     } finally {
       setLoading(false);
@@ -281,7 +278,6 @@ if (!updatedStudent.dob) {
         showError(response.data.message || "Failed to delete student");
       }
     } catch (error) {
-      console.error("Failed to delete student:", error);
       showError("Failed to delete student. Please try again.");
     } finally {
       setDeleteLoading(false);

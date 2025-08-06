@@ -39,8 +39,7 @@ function AllClassTimetable() {
 
         setLoading(false);
       } catch (error) {
-        alert('❌ Something went wrong try again');
-        console.error("❌ Error:", error);
+        showError("Something went wrong. Please try again.");
         setLoading(false);
       } finally {
         setLoading(false);
@@ -66,7 +65,7 @@ function AllClassTimetable() {
 
           setTimetableData(enrichedData);
         } catch (error) {
-          console.error("❌ Error fetching timetable data:", error);
+          showError("Unable to load timetable. Please try again.");
         }
       }
     };
@@ -96,17 +95,15 @@ function AllClassTimetable() {
       );
 
       setLoading(false);
-      showSuccess("✅ Timetable updated successfully!");
+      showSuccess("Timetable updated successfully!");
       setEditId(null);
       setEditedEntry({});
     } catch (error) {
-      console.error("❌ Error while saving edit:", error);
       setLoading(false);
-
       if (error.response?.data?.details?.subject) {
         alert(error.response.data.details.subject);
       } else {
-        alert(error.response?.data?.error || "Something went wrong.");
+        showError("Failed to save changes. Please try again.");
       }
     }
   };
@@ -123,10 +120,9 @@ function AllClassTimetable() {
         { withCredentials: true }
       );
 
-      showSuccess('Entry deleted successfully!');
+      showSuccess('deleted successfully!');
     } catch (error) {
-      console.error("❌ Error deleting entry:", error);
-      alert("❌ Failed to delete timetable entry. Please try again.");
+      showError("❌ Failed to delete timetable entry. Please try again.");
     }
   };
 

@@ -32,8 +32,7 @@ function StudentFeesHistory() {
         setLoading(false)
       } catch (error) {
         setLoading(false)
-        console.error("Error fetching student fee history:", error);
-        showError("Error fetching student fee history");
+      showError("Failed to load fee history. Please try again.");
       }
     };
 

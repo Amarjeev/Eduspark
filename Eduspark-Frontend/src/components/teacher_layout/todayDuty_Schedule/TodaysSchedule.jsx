@@ -51,7 +51,6 @@ function TodaysSchedule() {
         setDutyData(response.data);
       } catch (error) {
         showError("Failed to load today's duty schedule. Please try again.");
-        console.error("Error fetching today's teacher duties:", error);
       }
     };
 

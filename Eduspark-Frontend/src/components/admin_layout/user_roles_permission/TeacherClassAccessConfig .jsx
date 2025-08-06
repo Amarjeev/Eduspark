@@ -35,8 +35,7 @@ function TeacherClassAccessConfig() {
         setTeacherList(teacherListRes.data);
 
       } catch (error) {
-        console.error("Failed to fetch data:", error);
-        showError("Failed to load data ");
+        showError("Something went wrong. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -101,7 +100,6 @@ function TeacherClassAccessConfig() {
       setReloadDataTrigger(prev => !prev); // Trigger data refresh
       showSuccess(`Access successfully saved for ${selectedTeacher.name}.`);
     } catch (error) {
-      console.error("Save failed:", error);
       showError("Failed to save teacher class access. Please try again.");
     } finally {
       setLoading(false);

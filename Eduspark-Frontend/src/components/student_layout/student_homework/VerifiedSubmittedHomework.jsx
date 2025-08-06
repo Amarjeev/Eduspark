@@ -50,8 +50,7 @@ function VerifiedSubmittedHomework() {
         }, 1000);
       } catch (error) {
         setLoading(false);
-        showError('Failed to fetch verified homework');
-        console.error("Failed to fetch verified homework:", error);
+        showError("Unable to load verified homework. Please try again.");
       } finally {
         setLoading(false);
         return () => clearInterval(interval);
@@ -82,7 +81,7 @@ useEffect(() => {
 
       return () => clearTimeout(timer);
     })
-    .catch((err) => console.error("❌ Failed to save to IndexedDB:", err))
+    .catch((err) => {showError("Unable to cache homework locally. Please try again.")})
     .finally(() => setLoading(false));
 }, [selectedHomework, studentId]);
 
@@ -107,7 +106,7 @@ useEffect(() => {
         }
       }
     } catch (err) {
-      console.error("❌ Failed to load from IndexedDB:", err);
+      showError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -148,8 +147,7 @@ useEffect(() => {
           setLoading(false);
         } catch (error) {
           setLoading(false);
-          showError('Error fetching submitted answers');
-          console.error("Error fetching submitted answers:", error);
+          showError("Error fetching submitted answers. Please try again.");
         }
       };
 

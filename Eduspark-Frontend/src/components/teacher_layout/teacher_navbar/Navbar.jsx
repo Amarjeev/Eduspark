@@ -41,8 +41,7 @@ function Navbar() {
     }
   } catch (error) {
      setLoading(false)
-    console.error("Logout failed:", error.message);
-    showError('Logout failed')
+    showError('Logout failed. Please try again.')
   }
   };
   

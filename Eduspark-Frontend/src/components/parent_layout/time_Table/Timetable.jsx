@@ -45,8 +45,7 @@ function Timetable({ className }) {
         setDays(Array.from(allDays));
 
       } catch (error) {
-        console.error("❌ Error fetching timetable data:", error);
-        showError("Failed to load timetable");
+        showError("Failed to load timetable data. Please try again.");
       } finally {
         setLoading(false);
       }

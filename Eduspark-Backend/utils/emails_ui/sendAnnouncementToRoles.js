@@ -37,7 +37,7 @@ const sendAnnouncementToRoles = async ({
       );
     }
   } catch (error) {
-    console.error("❌ Error sending announcement:", error);
+    throw error;
   }
 };
 

@@ -39,7 +39,6 @@ const validateStudentForm = async (req, res, next) => {
       }
     }
   } catch (err) {
-    console.error("Redis error:", err);
     errors.className = "Server error while validating class name.";
   }
 

@@ -23,8 +23,7 @@ function TeacherList() {
         });
         setTeachers(teacherData.data);
       } catch (error) {
-        console.error("Teacher Data fetching failed:", error);
-        showError("Failed to load teacher data");
+        showError("Failed to load teacher data. Please try again.");
       } finally {
         setLoading(false);
       }

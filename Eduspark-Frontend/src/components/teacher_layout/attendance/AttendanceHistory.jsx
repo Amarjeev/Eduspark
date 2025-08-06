@@ -63,7 +63,6 @@ useEffect(() => {
         }
       } catch (error) {
          setLoading(false);
-        console.error("❌ Error fetching attendance:", error);
         // Handle custom error message
         if (error.response?.data?.responseMsg) {
           setAttendanceData([]);

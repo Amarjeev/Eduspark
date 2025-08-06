@@ -50,9 +50,8 @@ const validateFeeStructure = async (req, res, next) => {
         message: `❌ Invalid class name. Must be one of`,
       });
     }
-  } catch (err) {
-    console.error("❌ Redis cache error:", err);
-    return res.status(500).json({ message: "Internal server error during class validation." });
+  } catch (error) {
+   throw error;
   }
 
   next(); // ✅ All validations passed

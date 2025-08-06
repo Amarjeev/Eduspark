@@ -55,8 +55,7 @@ function ParentHomework({ className ,studentId}) {
           );
           setSubmittedAnswer(response.answerText);
         } catch (error) {
-          console.error("Error fetching answer:", error);
-          showError("Error fetching answer");
+            showError("Failed to fetch answer. Please try again.");
         } finally {
           setLoading(false);
         }
@@ -82,8 +81,7 @@ function ParentHomework({ className ,studentId}) {
         setHomeworkList(response.data);
         setCurrentTime(new Date(response.time).getTime());
       } catch (error) {
-        console.error("Homework fetch failed:", error);
-        showError("Homework fetch failed");
+          showError("Failed to load homework. Please try again.");
       } finally {
         setLoading(false);
       }

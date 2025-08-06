@@ -126,11 +126,8 @@ function ForgotUdisecode() {
       setLoading(false);
 
     } catch (err) {
-      console.error("handleSubmit error:", err);
       setLoading(false)
-        // if (err?.response?.status === 500) {
-          showError("Server error. Please try again later.");
-        // }
+      showError("Something went wrong. Please try again.");
     }
   };
 

@@ -28,8 +28,7 @@ function FeesPaymentHistory({studentId ,className}) {
         setLoading(false)
       } catch (error) {
         setLoading(false)
-        console.error("Error fetching student fee history:", error);
-        showError("Error fetching student fee history");
+        showError("Error fetching student fee history. Please try again.");
       }
     };
 

@@ -43,9 +43,8 @@ useEffect(() => {
         });
         setAllStudents(res.data || []);
       } catch (error) {
-        console.error('❌ Error fetching students:', error);
         setAllStudents([]);
-        showError('Unable to fetch students for this class.');
+        showError('Unable to fetch students for this class. Please try again.');
       } finally {
         setLoading(false);
       }

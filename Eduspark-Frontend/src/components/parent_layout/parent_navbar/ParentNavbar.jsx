@@ -57,8 +57,7 @@ function ParentNavbar() {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        showError("Failed to fetch profile data");
-        console.error(error);
+        showError("Failed to load profile data. Please try again.");
       }
     };
     fetchProfile();
@@ -85,8 +84,7 @@ function ParentNavbar() {
       navigate("/"); // Redirect to home/login
     } catch (error) {
       setLoading(false);
-      console.error("Logout failed:", error);
-      showError("Logout failed");
+      showError("Logout failed. Please try again.");
     }
   };
 

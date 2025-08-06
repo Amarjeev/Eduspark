@@ -36,7 +36,6 @@ async function requestUdisecodeRecovery(data, id,navigate) {
     return response.data;
 
   } catch (error) {
-    console.error("Forgot UDISECode error:", error);
     if (error.response.data.message === "Session expired") {
      navigate("/"); 
     }

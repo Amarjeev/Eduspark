@@ -106,10 +106,8 @@ function LoginForm() {
       }
 
     } catch (error) {
-      // 🚨 Catch and display unexpected errors
-      console.error("Login error:", error.response?.data || error.message);
-      showError("❌ No response from server. Please check your network connection.");
       setLoading(false);
+      showError("Something went wrong. Please try again.");
     }
   };
 

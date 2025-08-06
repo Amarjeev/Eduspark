@@ -22,7 +22,7 @@ function PaymentHistory() {
         setHistory(res.data?.paymentHistory || []);
         setStudentName(res.data?.studentData?.name || 'Unknown Student');
       } catch (err) {
-        console.error("Error loading payment history", err);
+        showError(" Failed to load payment history. Please try again.");
       } finally {
         setLoading(false);
       }

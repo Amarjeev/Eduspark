@@ -30,8 +30,7 @@ function StudentAttendance({ studentId }) {
     // Set the full attendance object
     setStudentRecord(response.data.response);
   } catch (error) {
-    console.error("Failed to fetch attendance history:", error);
-    showError('Failed to fetch attendance history')
+   showError('Failed to fetch attendance history. Please try again.');
   }
 };
 

@@ -207,8 +207,7 @@ function AddStudent() {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.error("Signup error:", error);
-      showError(error?.response?.data?.message || "Something went wrong. Please try again.");
+      showError("Something went wrong. Please try again.");
     }
   };
 

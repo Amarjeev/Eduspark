@@ -64,8 +64,6 @@ function AdminSignupPage() {
       showError("No school found with this UDISE code. Please enter a valid UDISE code.");
       }
     } catch (error) {
-      // Handle network or server errors
-      console.error("Error fetching school data:", error);
       setFormData((prev) => ({
         ...prev,
         schoolname: "",
@@ -131,13 +129,12 @@ if (Object.keys(errors).length !== 0) {
 
   }
     } catch (error) {
-      console.error("Signup error:", error);
       setLoading(false)
       if (error?.response?.data?.success === 'duplicate') {
-        alert("Duplicate account found. Please use a different email or UDISE code.")
+        showError("Duplicate account found. Please use a different email or UDISE code.")
         return
       } else {
-        showError("No response from server. Please try again later.");
+       showError("Something went wrong. Please try again.");
       }
 }
 

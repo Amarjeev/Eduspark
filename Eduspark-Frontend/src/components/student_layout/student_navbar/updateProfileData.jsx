@@ -12,7 +12,6 @@ const updateProfileData = async (item, role) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Password change failed:", error.response?.data || error.message);
     throw error;
   }
 };

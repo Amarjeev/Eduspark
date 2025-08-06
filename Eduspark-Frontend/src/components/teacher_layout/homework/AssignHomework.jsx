@@ -146,8 +146,7 @@ function AssignHomework() {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        showError('Error fetching homework data please try again')
-        console.error("❌ Error fetching homework data:", error);
+        showError('Error fetching homework data. please try again')
       }
     })();
   }, [skipValue, selectedClassName, selectedSubjectName]);
@@ -222,8 +221,7 @@ function AssignHomework() {
       showSuccess('Homework Submitted!');
     } catch (error) {
       setLoading(false);
-      console.error('❌ Error sending homework:', error.response?.data || error.message);
-      showError('❌ Failed to submit homework. Please try again.');
+      showError('Failed to submit homework. Please try again.');
     }
   };
 

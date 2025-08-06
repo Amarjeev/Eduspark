@@ -24,7 +24,7 @@ const useUserSchoolData = (role) => {
         const userData = userRes?.data?.userData;
 
         if (!userData) {
-          console.warn(`No user data found for role: ${role}`);
+           showError(`Unable to load user data for ${role}. Please try again.`);
           return;
         }
 
@@ -53,7 +53,7 @@ const useUserSchoolData = (role) => {
         }
 
       } catch (error) {
-        // console.error("❌ Error fetching user or school data:", error);
+       console.error("Something went wrong. Please log out and log in again.");
       }
     };
 

@@ -18,8 +18,7 @@ function StudentProfileCard({ studentId }) {
         });
         setStudent(response.data);
       } catch (error) {
-        console.error("Error fetching student profile:", error);
-        showError('Error fetching student profile');
+        showError("Failed to load profile data. Please try again.");
       } finally {
         setLoading(false);
       }

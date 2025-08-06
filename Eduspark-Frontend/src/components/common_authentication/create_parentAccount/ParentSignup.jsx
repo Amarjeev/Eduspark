@@ -99,10 +99,7 @@ function ParentSignup() {
         }));
         return showError("An account with this email already exists for this school");
       }
-
-      // ❌ Fallback error if it's not a known case
-      showError('Signup failed');
-      console.error("❌ Signup failed:", error);
+      showError("Something went wrong. Please try again.");
     }
   };
 

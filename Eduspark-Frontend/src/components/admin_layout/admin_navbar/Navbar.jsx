@@ -21,7 +21,7 @@ function Navbar() {
           setSchoolName(name?.schoolname);
         }
       } catch (error) {
-        console.error("❌ Error fetching school name from IndexedDB:", error);
+       showError("Something went wrong. Please try again.");
       }
     })();
   }, []);
@@ -43,7 +43,6 @@ function Navbar() {
 
     } catch (error) {
       setLoading(false)
-      console.error('logout error', error);
       showError('Logout failed')
     }
   };

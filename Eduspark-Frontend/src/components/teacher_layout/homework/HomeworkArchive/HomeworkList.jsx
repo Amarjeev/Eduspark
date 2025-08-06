@@ -84,8 +84,7 @@ function HomeworkList() {
         showSuccess("Homework verified successfully");
       }
     } catch (error) {
-      console.error("Verification error:", error);
-      showError("An error occurred while verifying the homework.");
+      showError("Something went wrong while verifying the homework. Please try again.");
     }
   };
 
@@ -111,7 +110,7 @@ function HomeworkList() {
         setStudentList(response.studentlist);
         setCurrentTime(new Date(response.time).getTime());
       } catch (error) {
-        console.error("Error fetching homework:", error);
+        showError("Unable to fetch homework. Please try again.");
       }
     };
 
@@ -218,7 +217,7 @@ function HomeworkList() {
           const studentIdArray = await useHomeworkAnswer("get-studentSumbitedAnswer", payload);
           setStudentAnswers(studentIdArray[0]);
         } catch (error) {
-          console.error("Error fetching submitted answers:", error);
+            showError("Unable to fetch submitted answers. Please try again.");
         }
       };
 

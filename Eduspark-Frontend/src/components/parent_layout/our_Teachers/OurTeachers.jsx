@@ -17,8 +17,7 @@ function OurTeachers() {
         );
         setTeacherProfile(response.data.data);
       } catch (error) {
-        console.error("❌ Error fetching teacher profile:", error);
-        showError('Error fetching teacher profile');
+        showError('Error fetching teacher profile. Please try again.');
       }
     };
 

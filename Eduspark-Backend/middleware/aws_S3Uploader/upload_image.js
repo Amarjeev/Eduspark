@@ -37,7 +37,6 @@ const uploadFileToS3 = async (file) => {
 
     return result.Location;
   } catch (error) {
-    console.error("❌ Error uploading file to S3:", error);
     throw new Error("Failed to upload file to S3");
   }
 };

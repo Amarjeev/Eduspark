@@ -62,11 +62,10 @@ function AddExamMarks() {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        console.error("Error fetching student details:", error.message);
-        // Handle 404 (student not found) specifically
         if (error.response?.status === 404) {
           setStudentStatus(null);
         }
+        showError("Something went wrong. Please try again.");
       }
     };
 
@@ -526,8 +525,7 @@ const validateExamDate = (date) => {
         examDate: ''
       });
     } catch (error) {
-      console.error("Submission error:", error);
-      showError(error.response?.data?.message || "Failed to submit marks");
+     showError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }

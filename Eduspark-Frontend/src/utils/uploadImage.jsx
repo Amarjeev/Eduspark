@@ -18,7 +18,6 @@ const uploadImage = async (formData, role) => {
     });
     return response.data.profilePicUrl;
   } catch (error) {
-    console.error("Image upload failed:", error.response?.data || error.message);
     throw error;
   }
 };

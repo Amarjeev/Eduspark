@@ -132,8 +132,7 @@ verifyHomeworkRouter.get(
         }
       }
     } catch (error) {
-      console.error("❌ Error in homework-answer route:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
+     next(error);
     }
   }
 );

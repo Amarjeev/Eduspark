@@ -2,7 +2,6 @@
 const logger = require("./logger"); // Adjust if path is different
 
 const errorHandler = (err, req, res, next) => {
-    console.error("🔥 Global Error Handler:", err.message);
   logger.error(`❌ ${err.message}`, {
     stack: err.stack,
     url: req.originalUrl,

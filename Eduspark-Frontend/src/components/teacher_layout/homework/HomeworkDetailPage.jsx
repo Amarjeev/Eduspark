@@ -73,8 +73,7 @@ const HomeworkDetailPage = () => {
         setLoading(false);
       } catch (error) {
         setLoading(false);
-        showError(' Failed to fetch homework data please try again');
-        console.error("❌ Failed to fetch homework data:", error);
+        showError(' Failed to fetch homework data. please try again');
       }
     })();
   }, [id]);

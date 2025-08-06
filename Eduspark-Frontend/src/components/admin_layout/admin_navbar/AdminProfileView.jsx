@@ -52,7 +52,6 @@ function AdminProfileView() {
         }
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching admin profile:", error);
         setLoading(false);
         showError("Error fetching admin profile");
       }
@@ -81,7 +80,6 @@ function AdminProfileView() {
       }
 
     } catch (error) {
-      console.error("Delete account error:", error);
       setLoading(false);
       showError("Something went wrong. Please try again.");
     }
@@ -226,7 +224,6 @@ function AdminProfileView() {
         showSuccess(`${item} updated successfully`);
       }
     } catch (error) {
-      console.log("admin profile edit :", error.response);
       setLoading(false);
       if (error.response?.data?.success === 'current-password-wrong') {
         return showError("Current password is incorrect.");

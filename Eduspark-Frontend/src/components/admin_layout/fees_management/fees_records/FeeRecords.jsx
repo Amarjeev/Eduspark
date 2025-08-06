@@ -26,8 +26,7 @@ function FeeRecords() {
 
         
       } catch (error) {
-        console.error("Failed to fetch data:", error);
-        showError("Failed to load data");
+        showError("Failed to load data. Please try again.");
       } finally {
         setLoading(false); // stop loading
       }
@@ -58,8 +57,7 @@ useEffect(() => {
 
       } catch (error) {
         setLoading(false)
-        console.error("Error fetching class fee records:", error);
-        showError("Failed to load class records");
+        showError("Failed to load class records. Please try again.");
       } finally {
         setLoading(false); // stop loading
       }

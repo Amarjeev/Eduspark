@@ -16,7 +16,7 @@ const useParentHomework = async (status, role, data , className) => {
 
       return homeworkData.data;
     } catch (error) {
-      console.error("❌ Error fetching homework:", error);
+          showError("Failed to load homework. Please try again.");
       throw error;
     }
   }
@@ -31,7 +31,6 @@ const useParentHomework = async (status, role, data , className) => {
       );
       return homeworkData.data;
     } catch (error) {
-      console.error("❌ Error submitting homework:", error);
       throw error;
     }
   }
@@ -45,7 +44,6 @@ const useParentHomework = async (status, role, data , className) => {
       );
       return homeworkData.data.data; // ✅ Return only the answerText object
     } catch (error) {
-      console.error("❌ Error fetching submitted answer:", error);
       throw error;
     }
   }

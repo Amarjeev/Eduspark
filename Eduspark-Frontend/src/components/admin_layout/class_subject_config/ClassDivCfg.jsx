@@ -62,7 +62,7 @@ const ClassDivCfg = () => {
         // ✅ Save organized list to state
         setSavedClasses(sortedClassDivisions);
       } catch (error) {
-        console.error("Error fetching class-division data:", error);
+        showError("Something went wrong. Please try again.");
       }
     };
 
@@ -135,14 +135,9 @@ const ClassDivCfg = () => {
       if (error.status === 409) {
         const duplicates = error.response.data.duplicate;
         setDuplError(duplicates);
-        alert('Some class-division pairs already exist for this school.');
         return showError('Some class-division pairs already exist for this school.');
       }
-
-      // ❌ Handle general server error
-      console.error('❌ Backend data saving failed:', error);
-      alert('❌ Failed to save class and division data. Please try again later');
-      showError(' Failed to save class and division data. Please try again later.');
+      showError("Something went wrong. Please try again.");
     }
   };
 
@@ -181,11 +176,9 @@ const ClassDivCfg = () => {
     } catch (error) {
       // ❌ Handle duplicate update error
       if (error.status === 409) {
-        console.error("Error updating class/division:", error);
-        alert('❌ Cannot update: The combination "1st-AB" already exists in your school list. Please avoid duplicates')
+        showError('❌ Cannot update: The combination "1st-AB" already exists in your school list. Please avoid duplicates')
       } else {
-        alert("⚠️ Something went wrong while updating.");
-        console.error("Error updating class/division:", error);
+        showError("Something went wrong. Please try again.");
       }
     }
   }
@@ -206,9 +199,7 @@ const ClassDivCfg = () => {
       }
     }
     catch (error) {
-      console.error('delete', error);
-      alert('⚠️ Internal server error while deleting class-division.');
-      showError('Internal server error while deleting class-division.');
+      showError("Something went wrong. Please try again.");
     }
   }
 

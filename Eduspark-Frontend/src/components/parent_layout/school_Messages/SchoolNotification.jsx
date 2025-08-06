@@ -35,8 +35,6 @@ function SchoolNotification() {
         const pages = Math.ceil(response?.data?.count / 10); // 10 items per page
         setTotalPages(pages);
       } catch (error) {
-        // ❌ Handle API error
-        console.error("Error fetching announcements:", error);
         showError("Failed to load announcements. Please try again.");
       } finally {
         setLoading(false); // Stop loader

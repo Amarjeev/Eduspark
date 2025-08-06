@@ -17,8 +17,7 @@ function StudentTeacherList() {
         );
         setTeacherProfile(response.data.data);
       } catch (error) {
-        console.error("❌ Error fetching teacher profile:", error);
-        showError('Error fetching teacher profile');
+        showError("Failed to load profile data. Please try again.");
       }
     };
 

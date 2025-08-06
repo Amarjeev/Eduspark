@@ -54,8 +54,7 @@ function ManageStudentFees() {
       setDuplicateError('')
       setLoading(false);
     } catch (error) {
-      console.error("🚨 Error fetching student profile:", error);
-      showError("❌ Failed to fetch student profile");
+      showError("Failed to fetch student profile. Please try again.");
       setDuplicateError(error.response?.data?.error || "Unknown error");
       setLoading(false);
     }
@@ -120,7 +119,7 @@ function ManageStudentFees() {
       setStudentProfile({});
       setLoading(false);
     } catch (error) {
-      console.error("🚨 Error submitting fee:", error);
+      showError(" Failed to submit fee. Please try again.");
       setLoading(false);
 
       if (error.response?.data?.status === "warning") {

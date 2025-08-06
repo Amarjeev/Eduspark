@@ -51,8 +51,8 @@ const CreateTimetable = () => {
         }
         setLoading(false);
       } catch (error) {
-        console.error("❌ Error:", error);
         setLoading(false);
+        showError("Something went wrong. Please try again.");
       }
     };
     fetchClassAndSubjects();
@@ -83,7 +83,7 @@ const CreateTimetable = () => {
         setTeacherIdWarning('⚠️ Teacher not found.');
       }
     } catch (error) {
-      console.error('❌ Unable to fetch teacher name.', error);
+      showError("Something went wrong. Please try again.");
       setTeacherIdWarning(error.response?.data?.warning || "Error fetching teacher name.");
       setLoading(false);
     }
@@ -194,9 +194,8 @@ const CreateTimetable = () => {
       setLoading(false)
       showSuccess("Timetable saved successfully!");
     } catch (error) {
-      console.error("❌ Error saving timetable:", error);
       setLoading(false)
-      showError(error?.response?.data?.message || "Failed to save timetable.");
+       showError(" Failed to save timetable. Please try again.");
     }
   };
 

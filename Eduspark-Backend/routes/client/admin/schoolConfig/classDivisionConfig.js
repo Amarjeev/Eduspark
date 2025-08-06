@@ -131,7 +131,7 @@ classDivisionConfig.put(
 
         res.status(200).send({ status: true });
       } catch (error) {
-        console.error("delete", error);
+        next(error);
       }
     }
 

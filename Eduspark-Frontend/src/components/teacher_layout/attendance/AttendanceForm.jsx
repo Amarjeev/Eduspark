@@ -111,8 +111,7 @@ const storedDupMsg = await getFromIndexedDB(`duplicateMessage_${role}`);
           setLoading(false);
         } catch (error) {
           setLoading(false);
-          console.error("❌ Failed to fetch student list:", error);
-          showError("⚠️ Unable to load student list. Please check your connection or try again later.");
+          showError("Failed to load data. Please try again.");
         }
       };
       fetchStudentList();
@@ -232,8 +231,6 @@ await removeFromIndexedDB(`duplicateMessage_${role}`);
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.error("❌ Error submitting attendance:", error);
-
       if (error.response?.data?.duplicate === true) {
         const { date, message } = error.response.data;
         setSavedDate(date);
@@ -243,7 +240,7 @@ await removeFromIndexedDB(`duplicateMessage_${role}`);
         return;
       }
 
-      showError("❌ Failed to submit attendance. Please try again.");
+      showError("Failed to submit attendance. Please try again.");
     }
   };
 

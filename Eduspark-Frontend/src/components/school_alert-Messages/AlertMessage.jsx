@@ -35,7 +35,6 @@ function AlertMessage() {
         const pages = Math.ceil(response?.data?.count / 10);
         setTotalPages(pages);
       } catch (error) {
-        console.error("Error fetching announcements:", error);
         showError("Failed to load announcements. Please try again.");
       } finally {
         setLoading(false);

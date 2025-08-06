@@ -51,7 +51,6 @@ LoginRouter.post("/:role/auth/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, response.password);
 
     if (!response || !isMatch) {
-      console.warn("Invalid credentials provided.");
       return res.status(401).json({
         isAuth: false,
         message:
