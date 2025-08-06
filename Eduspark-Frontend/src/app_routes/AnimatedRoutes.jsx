@@ -149,7 +149,7 @@ function AnimatedRoutes() {
 
 
               {/* 🎓 Student Routes */}
-               <Route path="/verified-submitted-homework/student" element={<ProtectedStudentRoute><VerifiedSubmittedHomeworkPage/></ProtectedStudentRoute>} />
+              <Route path="/verified-submitted-homework/student" element={<ProtectedStudentRoute><VerifiedSubmittedHomeworkPage/></ProtectedStudentRoute>} />
               <Route path="/student/dashboard" element={<ProtectedStudentRoute><StudentHome /></ProtectedStudentRoute>} />
               <Route path="/student/timeTable" element={<ProtectedStudentRoute><StudentTimetablePage /></ProtectedStudentRoute>} />
               <Route path="/student/teacher-list" element={<ProtectedStudentRoute><StudentTeacherListPage /></ProtectedStudentRoute>} />
