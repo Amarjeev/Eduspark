@@ -308,7 +308,7 @@ function AdminProfileView() {
                 />
           </div>
           <h2 className="text-2xl font-bold text-gray-800">
-          {profile.name.split(' ').slice(0, 2).join(' ')}
+          {profile?.name?.split(' ').slice(0, 2).join(' ')}
           </h2>
           <p className="text-sm font-semibold text-black bg-blue-100 px-3 py-1 rounded-full mt-1">Admin</p>
           <p className="text-xs mt-1 inline-block bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full font-medium shadow-sm">
@@ -432,7 +432,7 @@ function AdminProfileView() {
 
     <div className="flex justify-center gap-2 mt-3">
       <button
-         onClick={() => {
+    onClick={() => {
     setShowDeleteConfirmCard(false);
     setDeleteConfirmInput('');
   }}
@@ -454,8 +454,6 @@ function AdminProfileView() {
     </div>
   </div>
  )}
-
-
        {/* Delete Account */}
 <div className="text-center mt-6">
   <button
@@ -468,7 +466,6 @@ function AdminProfileView() {
     Delete Account
   </button>
 </div>
-
       </div>
       </div>
       </PageWrapper>

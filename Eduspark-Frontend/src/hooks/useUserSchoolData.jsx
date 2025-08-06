@@ -29,15 +29,15 @@ const useUserSchoolData = (role) => {
         }
 
         const ProfileData = {
-          employId: userData.employId || userData.studentId || "",
-          udisecode: userData.udisecode || "",
-          name: userData.name || "",
-          Id: userData._id || "",
-          url: userData.profilePicUrl || "",
-          schoolname: userData.schoolname || "",
-          className: userData.className || "",
-          email: userData.email || "",
-          mobileNumber:userData.mobileNumber || "",
+          employId: userData?.employId || userData?.studentId || "",
+          udisecode: userData?.udisecode || "",
+          name: userData?.name || "",
+          Id: userData?._id || "",
+          url: userData?.profilePicUrl || "",
+          schoolname: userData?.schoolname || "",
+          className: userData?.className || "",
+          email: userData?.email || "",
+          mobileNumber:userData?.mobileNumber || "",
         };
 
         await saveToIndexedDB(`${role}_ProfileData`, ProfileData);
@@ -53,7 +53,7 @@ const useUserSchoolData = (role) => {
         }
 
       } catch (error) {
-       console.error("Something went wrong. Please log out and log in again.");
+      //  console.error("Something went wrong. Please log out and log in again.",error);
       }
     };
 

@@ -114,7 +114,7 @@ function Navbar() {
           <div className="p-4 border-t border-gray-300 bg-gray-50 text-sm text-gray-700 text-center break-words">
            <span className="font-semibold uppercase tracking-wide">
            <span className="text-lg mr-1">📚</span>
-           {schoolName.split(' ').slice(0, 5).join(' ')}
+           {schoolName?.split(' ').slice(0, 5).join(' ')}
           </span>
 
           </div>

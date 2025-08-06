@@ -1,7 +1,7 @@
 const express = require("express");
 const getSchoolConfigDataRoute = express.Router();
 
-const SubjectConfigSchema = require("../../models/classDivision");
+const classConfigSchema = require("../../models/classDivision");
 const subjectConfigSchema = require("../../models/subjectConfig");
 const redisClient = require("../../config/redis/redisClient");
 const { verifyTokenByRole } = require("../verifyToken/verify_token");
@@ -10,20 +10,66 @@ const { verifyTokenByRole } = require("../verifyToken/verify_token");
 getSchoolConfigDataRoute.get(
   "/school/config-data/:role",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res, next) => {
     try {
       const { role } = req.params;
-      const { udisecode, employid } = req[role];
+      const userData = req[role];
 
-      // Run both MongoDB queries at the same time
+      if (!userData || !userData.udisecode || !userData.employid) {
+        return res
+          .status(400)
+          .json({ message: "Missing UDISE code or employee ID in request." });
+      }
+
+      const { udisecode, employid } = userData;
+
+      // 🧠 Run MongoDB queries in parallel
       const [subjectResponse, classResponse] = await Promise.all([
         subjectConfigSchema.find({ udisecode }, { subjects: 1, _id: 0 }),
-        SubjectConfigSchema.find({ udisecode }).lean(),
+        classConfigSchema.find({ udisecode }, { className: 1, _id: 0 }).lean(),
       ]);
 
-      // === Handle Subject Response ===
-      // ✅ Check if both subject and class data are empty
-      if (!subjectResponse.length && !classResponse.length) {
+      // 🟡 Build subject list safely
+      const subjectList =
+        subjectResponse.length && subjectResponse[0]?.subjects?.length
+          ? subjectResponse[0].subjects.map((subject) => {
+              const rawName = subject?.name ?? "";
+              const prettyName =
+                typeof rawName === "string"
+                  ? rawName
+                      .split(" ")
+                      .map(
+                        (word) =>
+                          word.charAt(0).toUpperCase() + word.slice(1)
+                      )
+                      .join(" ")
+                  : "";
+              return prettyName;
+            })
+          : [];
+
+      // Save subject list to Redis
+      await redisClient.set(
+        `subject-List:${udisecode}${employid}`,
+        JSON.stringify(subjectList)
+      );
+
+      // 🟡 Build class list safely
+      const classList =
+        classResponse.length && classResponse[0]?.className?.length
+          ? classResponse[0].className
+              .map((item) => item.value)
+              .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+          : [];
+
+      // Save class list to Redis
+      await redisClient.set(
+        `class-List:${udisecode}${employid}`,
+        JSON.stringify(classList)
+      );
+
+      // 🟢 Final response
+      if (!subjectList.length && !classList.length) {
         return res.status(200).json({
           subjects: ["No subjects available"],
           classes: ["No classes available"],
@@ -31,49 +77,14 @@ getSchoolConfigDataRoute.get(
         });
       }
 
-      const subjectNames = subjectResponse[0].subjects.map((subject) => {
-        const rawName = subject?.name ?? "";
-        const prettyName =
-          typeof rawName === "string"
-            ? rawName
-                .split(" ")
-                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(" ")
-            : "";
-        return { name: prettyName, _id: subject._id };
-      });
-
-      const subjectList = subjectNames.map((item) => item.name);
-
-      await redisClient.set(
-        `subject-List:${udisecode}${employid}`,
-        JSON.stringify(subjectList)
-      );
-
-      // === Handle Class Response ===
-      if (!classResponse.length) {
-        return res
-          .status(404)
-          .json({ message: "No class data found for this UDISE code." });
-      }
-
-      const classList = classResponse[0].className
-        .map((item) => item.value)
-        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-
-      await redisClient.set(
-        `class-List:${udisecode}${employid}`,
-        JSON.stringify(classList)
-      );
-
-      // ✅ Send both
       return res.status(200).json({
-        subjects: subjectList || [],
-        classes: classList || [],
+        subjects: subjectList,
+        classes: classList,
       });
     } catch (error) {
       next(error);
     }
   }
 );
+
 module.exports = getSchoolConfigDataRoute;

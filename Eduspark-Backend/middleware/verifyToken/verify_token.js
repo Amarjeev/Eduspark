@@ -16,7 +16,7 @@ function verifyTokenByRole(role) {
       const token = req.cookies[cookieName];
 
       if (!token) {
-        return res.status(401).json({ message: "Unauthorized: No token" });
+         return //res.status(401).json({ message: "Unauthorized: No token" });
       }
       const decoded = jwt.verify(token, jwt_key);
       req[effectiveRole.toLowerCase()] = decoded;
