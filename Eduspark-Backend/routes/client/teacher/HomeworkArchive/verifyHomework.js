@@ -83,13 +83,7 @@ verifyHomeworkRouter.get(
         time: now,
       });
     } catch (error) {
-      // ❌ Handle unexpected errors
-      console.error("❌ Error in /get-homework route:", error);
-      res.status(500).json({
-        success: false,
-        message: "Failed to fetch homework",
-        error: error?.message || "Unknown error",
-      });
+      next(error);
     }
   }
 );
@@ -134,10 +128,7 @@ verifyHomeworkRouter.get(
 
           return res.status(200).json({ data: sumbitedHomework });
         } catch (innerError) {
-          console.error("❌ Error fetching submitted answer:", innerError);
-          return res
-            .status(500)
-            .json({ message: "Error fetching student answer" });
+          next(error);
         }
       }
     } catch (error) {
@@ -160,30 +151,24 @@ verifyHomeworkRouter.post(
       const trimmedComment = teacherComment?.trim() || "";
 
       if (trimmedComment.length > 300) {
-        return res
-          .status(400)
-          .json({
-            message: "Comment is too long. Maximum 300 characters allowed.",
-          });
+        return res.status(400).json({
+          message: "Comment is too long. Maximum 300 characters allowed.",
+        });
       }
 
       if (trimmedComment.length < 10) {
-        return res
-          .status(400)
-          .json({
-            message: "Comment is too short. Minimum 10 characters required.",
-          });
+        return res.status(400).json({
+          message: "Comment is too short. Minimum 10 characters required.",
+        });
       }
 
       if (
         !answerStatus ||
         !["wrong", "correct", "pending"].includes(answerStatus)
       ) {
-        return res
-          .status(400)
-          .json({
-            message: "Please select if the answer is approved or rejected.",
-          });
+        return res.status(400).json({
+          message: "Please select if the answer is approved or rejected.",
+        });
       }
 
       // ✅ Update homework submission
@@ -210,10 +195,7 @@ verifyHomeworkRouter.post(
         success: true,
       });
     } catch (error) {
-      console.error("❌ Error verifying homework:", error);
-      return res
-        .status(500)
-        .json({ message: "Server error during verification." });
+      next(error);
     }
   }
 );

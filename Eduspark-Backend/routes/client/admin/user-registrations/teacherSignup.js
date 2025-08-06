@@ -79,14 +79,7 @@ teacherSignup.post(
         .status(201)
         .json({ message: "Teacher registered successfully", status: true });
     } catch (error) {
-      // Handle unexpected errors and send internal server error response
-      console.error("Error in /admin/teachers/signup:", error);
-      return res.status(500).json({
-        error: "Internal server error",
-        message: error.message,
-        status: false,
-        error,
-      });
+      next(error);
     }
   }
 );

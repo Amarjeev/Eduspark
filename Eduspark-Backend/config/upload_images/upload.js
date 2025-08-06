@@ -1,11 +1,16 @@
 const express = require("express");
 const uploadImageRouter = express.Router();
-const { upload, uploadFileToS3 } = require("../../middleware/aws_S3Uploader/upload_image")
+const {
+  upload,
+  uploadFileToS3,
+} = require("../../middleware/aws_S3Uploader/upload_image");
 let teacherSchema = require("../../models/teacher");
 let adminSchema = require("../../models/admin");
 let studentSchema = require("../../models/student");
 let parentSchema = require("../../models/parent");
-const { verifyTokenByRole } = require("../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../middleware/verifyToken/verify_token");
 
 uploadImageRouter.post(
   "/upload-image/:role",
@@ -18,7 +23,9 @@ uploadImageRouter.post(
 
       const maxSizeInBytes = 10 * 1024 * 1024; // 10 MB
       if (!req.file || req.file.size > maxSizeInBytes) {
-        return res.status(400).json({ message: "❌ Only images up to 10MB are allowed." });
+        return res
+          .status(400)
+          .json({ message: "❌ Only images up to 10MB are allowed." });
       }
 
       const imageUrl = await uploadFileToS3(req.file);
@@ -43,11 +50,10 @@ uploadImageRouter.post(
 
       res.status(200).json({
         message: "✅ Image uploaded successfully",
-        profilePicUrl: imageUrl
+        profilePicUrl: imageUrl,
       });
     } catch (error) {
-      console.error("Upload image error:", error);
-      res.status(500).json({ message: "❌ Internal Server Error", error: error.message });
+      next(error);
     }
   }
 );

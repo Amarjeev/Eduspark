@@ -2,8 +2,10 @@ const express = require("express");
 const editTeacherProfile = express.Router();
 const teacherSchema = require("../../../../models/teacher");
 const validateTeacherForm = require("../../../../validators/validateTeacherForm");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
-const bcrypt = require('bcrypt');
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
+const bcrypt = require("bcrypt");
 
 // ✅ GET: Retrieve teacher data (all or specific by ID)
 editTeacherProfile.get(
@@ -16,13 +18,15 @@ editTeacherProfile.get(
     try {
       if (status === "All") {
         // ✅ Get all teachers in the school
-       const response = await teacherSchema
-  .find({ 
-    udisecode,
-    status: { $ne: "deleted" } // ❌ Ignore teachers marked as 'delete'
-  })
-  .select("employId subject phonenumber name profilePicUrl email status")
-  .lean();
+        const response = await teacherSchema
+          .find({
+            udisecode,
+            status: { $ne: "deleted" }, // ❌ Ignore teachers marked as 'delete'
+          })
+          .select(
+            "employId subject phonenumber name profilePicUrl email status"
+          )
+          .lean();
 
         return res.status(200).send(response);
       } else {
@@ -33,8 +37,7 @@ editTeacherProfile.get(
         return res.status(200).send(response);
       }
     } catch (error) {
-      console.error("Error fetching teacher data:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      next(error);
     }
   }
 );
@@ -78,12 +81,7 @@ editTeacherProfile.put(
         message: "Teacher profile updated successfully",
       });
     } catch (error) {
-      console.error("Error updating teacher profile:", error.message);
-      res.status(500).json({
-        success: false,
-        message: "Something went wrong",
-        error: error.message,
-      });
+      next(error);
     }
   }
 );
@@ -103,7 +101,7 @@ editTeacherProfile.delete(
         id,
         {
           isDeleted: true, // 🗑️ Marks teacher as deleted but retains data
-          status,          // 🟡 Optional status for admin visibility
+          status, // 🟡 Optional status for admin visibility
         },
         { new: true }
       );
@@ -122,17 +120,10 @@ editTeacherProfile.delete(
         message: "Teacher account deleted successfully",
       });
     } catch (error) {
-      // ❗ Error Handling
-      console.error("Delete error:", error);
-      res.status(500).json({
-        success: false,
-        message: "Server error",
-        error: error.message,
-      });
+      next(error);
     }
   }
 );
-
 
 // ✅ PUT: Teacher updates profile field (email, phone, password, etc.)
 editTeacherProfile.put(
@@ -145,22 +136,28 @@ editTeacherProfile.put(
       const teacherData = req.body?.tempValue;
 
       // ✅ Handle email and phone updates
-       if (item === 'email' || item === 'phonenumber') {
+      if (item === "email" || item === "phonenumber") {
         const trimmedData = teacherData?.trim();
 
         if (!trimmedData) {
-          return res.status(400).json({ error: `${item === 'email' ? 'Email' : 'Phone number'} is required.` });
+          return res
+            .status(400)
+            .json({
+              error: `${
+                item === "email" ? "Email" : "Phone number"
+              } is required.`,
+            });
         }
 
-        if (item === 'email') {
+        if (item === "email") {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(trimmedData)) {
             return res.status(400).json({ error: "Email is invalid." });
           }
         }
 
-        if (item === 'phonenumber') {
-          const phone = trimmedData.replace(/[\s-]/g, '');
+        if (item === "phonenumber") {
+          const phone = trimmedData.replace(/[\s-]/g, "");
           const phoneRegex = /^\d{7,15}$/;
           if (!phoneRegex.test(phone)) {
             return res.status(400).json({
@@ -171,7 +168,7 @@ editTeacherProfile.put(
       }
 
       // ✅ Handle password update
-      else if (item === 'password') {
+      else if (item === "password") {
         const { current, new: newPassword, confirm } = teacherData || {};
 
         // Validate new password
@@ -180,7 +177,9 @@ editTeacherProfile.put(
         }
 
         if (newPassword.length < 5 || newPassword.length > 10) {
-          return res.status(400).json({ error: "New password must be 5–10 characters long." });
+          return res
+            .status(400)
+            .json({ error: "New password must be 5–10 characters long." });
         }
 
         if (!confirm || confirm !== newPassword) {
@@ -188,32 +187,35 @@ editTeacherProfile.put(
         }
 
         if (!current || current.trim() === "") {
-          return res.status(400).json({ error: "Current password is required." });
+          return res
+            .status(400)
+            .json({ error: "Current password is required." });
         }
 
         // ✅ Check current password against DB
         const teacher = await teacherSchema
           .findOne({ _id: id, udisecode })
-          .select('+password');
-
+          .select("+password");
 
         if (!teacher) {
           return res.status(404).json({ error: "Teacher not found." });
-         }
-
-         const isMatch = await bcrypt.compare(current,teacher.password);
-
-
-        if (!isMatch) {
-          return res.status(401).json({ error: "Current password is incorrect." });
         }
 
-     // ✅ Password matched — update to new password
-            teacher.password = await bcrypt.hash(newPassword, 10);
-            await teacher.save();
+        const isMatch = await bcrypt.compare(current, teacher.password);
 
-         return res.status(200).json({ success: true, message: "Password updated successfully." });
-         
+        if (!isMatch) {
+          return res
+            .status(401)
+            .json({ error: "Current password is incorrect." });
+        }
+
+        // ✅ Password matched — update to new password
+        teacher.password = await bcrypt.hash(newPassword, 10);
+        await teacher.save();
+
+        return res
+          .status(200)
+          .json({ success: true, message: "Password updated successfully." });
       }
 
       // ✅ Update other editable fields
@@ -235,24 +237,14 @@ editTeacherProfile.put(
         message: "Teacher profile updated successfully",
       });
     } catch (error) {
-      console.error("Error updating teacher profile:", error.message);
-
       // ✅ Handle duplicate email conflict
       if (error.code === 11000 && error.message.includes("email")) {
-        return res
-          .status(409)
-          .json({
-            error:
-              "The provided email address is already registered to another teacher. Please use a different email.",
-          });
+        return res.status(409).json({
+          error:
+            "The provided email address is already registered to another teacher. Please use a different email.",
+        });
       }
-
-      // ✅ Handle all other errors
-      res.status(500).json({
-        success: false,
-        message: "Something went wrong",
-        error: error.message,
-      });
+      next(error);
     }
   }
 );

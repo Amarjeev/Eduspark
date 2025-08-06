@@ -43,12 +43,7 @@ resendOtpRouter.post("/:role/resend-otp", async (req, res) => {
       message: "OTP has been resent to your email.",
     });
   } catch (error) {
-    // 🧨 Handle unexpected errors
-    console.error("❌ Resend OTP Error:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Something went wrong while resending OTP.",
-    });
+    next(error);
   }
 });
 

@@ -4,6 +4,7 @@ const { S3Client } = require("@aws-sdk/client-s3");
 const { Upload } = require("@aws-sdk/lib-storage");
 require("dotenv").config();
 const sharp = require("sharp");
+const logger = require('../../utils/winston/logger')
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,

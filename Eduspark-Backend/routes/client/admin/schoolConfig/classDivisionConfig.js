@@ -1,12 +1,14 @@
 const express = require("express");
 const classDivisionConfig = express.Router();
 const ClassDivisionSchema = require("../../../../models/classDivision");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 
 // Route: Create or update class and division configuration for a school
 classDivisionConfig.post(
   "/admin/create-class-division",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   async (req, res) => {
     const { udisecode, schoolname } = req.admin; // Extract school info from verified token
     const submittedClassDivisionList = req.body; // Get submitted class-division array from request
@@ -80,11 +82,7 @@ classDivisionConfig.post(
         status: true,
       });
     } catch (error) {
-      console.error("❌ Backend error:", error); // Log error
-      res.status(500).json({
-        error: "Error saving class and divisions",
-        status: false,
-      });
+      next(error);
     }
   }
 );
@@ -92,7 +90,7 @@ classDivisionConfig.post(
 //fentching data
 classDivisionConfig.get(
   "/admin/get-class-divisions",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   async (req, res) => {
     try {
       const { udisecode } = req.admin;
@@ -103,15 +101,14 @@ classDivisionConfig.get(
 
       return res.status(201).json(response); // ✅ Send full data to frontend
     } catch (error) {
-      console.error("Error fetching divisions:", error);
-      res.status(500).json({ message: "Server error" });
+      next(error);
     }
   }
 );
 
 classDivisionConfig.put(
   "/admin/edit-class-division",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   async (req, res) => {
     const { udisecode } = req.admin; // Extract school info from verified token
     const { action, newData, currentID } = req.body;
@@ -154,8 +151,9 @@ classDivisionConfig.put(
             });
           }
 
-    const newValue = `${newClassName.trim().toLowerCase()} - ${newDivisionName.trim().toUpperCase()}`;
-
+          const newValue = `${newClassName
+            .trim()
+            .toLowerCase()} - ${newDivisionName.trim().toUpperCase()}`;
 
           // 🔍 Duplicate checking in DB for same value
           const duplicateExists = await ClassDivisionSchema.findOne({
@@ -187,11 +185,7 @@ classDivisionConfig.put(
           });
         }
       } catch (error) {
-        console.error("❌ Error while editing class-division:", error);
-        res.status(500).send({
-          message: "⚠️ Internal server error while editing class-division.",
-          status: false,
-        });
+        next(error);
       }
     }
   }

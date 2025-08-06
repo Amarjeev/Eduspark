@@ -29,8 +29,7 @@ getAlltimetableRouter.get(
       }
       res.status(200).json(allTimetables[0].entries);
     } catch (error) {
-      console.error("❌ Failed to fetch timetables:", error);
-      res.status(500).json({ error: "Failed to fetch timetables" });
+      next(error);
     }
   }
 );
@@ -86,10 +85,7 @@ getAlltimetableRouter.put(
         .status(200)
         .json({ message: "✅ Timetable entry updated successfully." });
     } catch (error) {
-      console.error("❌ Error updating timetable:", error);
-      res.status(500).json({
-        error: "❌ Server error while updating the timetable entry.",
-      });
+      next(error);
     }
   }
 );
@@ -116,8 +112,7 @@ getAlltimetableRouter.delete(
         .status(200)
         .json({ message: "✅ Timetable entry deleted successfully!" });
     } catch (error) {
-      console.error("❌ Error deleting timetable entry:", error);
-      res.status(500).json({ error: "Failed to delete entry" });
+      next(error);
     }
   }
 );

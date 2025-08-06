@@ -1,7 +1,9 @@
 const express = require("express");
 const ClassWiseTTTeacherRouter = express.Router();
 const timetableSchema = require("../../../../models/timetable");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 const redisClient = require("../../../../config/redis/redisClient");
 
 ClassWiseTTTeacherRouter.get(
@@ -18,13 +20,17 @@ ClassWiseTTTeacherRouter.get(
         .lean();
 
       if (!response || response.length === 0) {
-        return res.status(404).json({ message: "No timetable found for this class." ,emptyData:true});
+        return res
+          .status(404)
+          .json({
+            message: "No timetable found for this class.",
+            emptyData: true,
+          });
       }
 
       res.send(response[0].entries);
     } catch (error) {
-      console.error("Error fetching class timetable:", error);
-      res.status(500).json({ message: "Server error while fetching timetable." });
+      next(error);
     }
   }
 );

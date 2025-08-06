@@ -1,16 +1,17 @@
 const express = require("express");
 const schoolFeeStructureRouter = express.Router();
-
 // 🔗 Mongoose model
 const feeStructureSchema = require("../../../../models/feeStructure");
 
 // 🔐 Middleware
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 const validateFeeStructure = require("../../../../validators/validateFeeStructure");
 
 schoolFeeStructureRouter.get(
   "/admin/fees/get-structure",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   async (req, res) => {
     try {
       const { udisecode } = req.admin;
@@ -27,7 +28,7 @@ schoolFeeStructureRouter.get(
 
       // 🔠 Sort feeStructures alphabetically like 1-A, 1-B, 2-A, etc.
       const sortedFeeStructures = response.feeStructures.sort((a, b) => {
-        return a.className.localeCompare(b.className, 'en', { numeric: true });
+        return a.className.localeCompare(b.className, "en", { numeric: true });
       });
 
       res.status(200).json({
@@ -35,10 +36,7 @@ schoolFeeStructureRouter.get(
         feeStructures: sortedFeeStructures,
       });
     } catch (error) {
-      console.error("❌ Error fetching fee structure:", error);
-      res.status(500).json({
-        message: "❌ Internal server error while fetching fee structure.",
-      });
+      next(error);
     }
   }
 );
@@ -46,7 +44,7 @@ schoolFeeStructureRouter.get(
 // 🧾 Save Fee Structure Route
 schoolFeeStructureRouter.post(
   "/admin/fees/save-structure/:status",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   validateFeeStructure,
   async (req, res) => {
     try {
@@ -123,17 +121,14 @@ schoolFeeStructureRouter.post(
         }
       }
     } catch (error) {
-      console.error("❌ Error saving fee structure:", error);
-      res.status(500).json({
-        message: "❌ Internal server error. Please try again.",
-      });
+      next(error);
     }
   }
 );
 
 schoolFeeStructureRouter.delete(
   "/admin/fees/delete-structure/:id",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   async (req, res) => {
     try {
       const { id } = req.params;
@@ -154,10 +149,7 @@ schoolFeeStructureRouter.delete(
         .status(200)
         .json({ message: "✅ Fee structure deleted successfully." });
     } catch (error) {
-      console.error("❌ Error deleting fee structure:", error);
-      res
-        .status(500)
-        .json({ message: "❌ Internal server error. Please try again later." });
+      next(error);
     }
   }
 );

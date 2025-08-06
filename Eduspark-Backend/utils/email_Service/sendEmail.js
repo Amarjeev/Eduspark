@@ -17,7 +17,6 @@ const sendEmail = async (to, subject, messageText, htmlContent) => {
 
   try {
     const result = await ses.sendEmail(params).promise();
-    console.log("SES Email Sent:", result.MessageId);
     return result;
   } catch (error) {
     throw error;

@@ -1,11 +1,13 @@
 const express = require("express");
 const feeRecordsRouter = express.Router();
 const studentFeeSchema = require("../../../../models/studentFee");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 
 feeRecordsRouter.get(
   "/admin/fees/records/:selectedClass",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   async (req, res) => {
     try {
       const { selectedClass } = req.params;
@@ -14,22 +16,21 @@ feeRecordsRouter.get(
       const response = await studentFeeSchema.find(
         {
           udisecode: udisecode,
-          "studentData.className":selectedClass,
+          "studentData.className": selectedClass,
         },
         { paymentHistory: 0 }
       );
-      
+
       return res.status(200).json(response);
     } catch (error) {
-      console.error("❌ Error fetching fee records:", error);
-      return res.status(500).json({ error: "Server Error" });
+      next(error);
     }
   }
 );
 
 feeRecordsRouter.get(
   "/admin/fees/history/:id",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   async (req, res) => {
     try {
       const { id } = req.params;
@@ -46,8 +47,7 @@ feeRecordsRouter.get(
 
       res.status(200).json(response);
     } catch (error) {
-      console.error("Error fetching payment history:", error.message);
-      res.status(500).json({ message: "Internal server error" });
+      next(error);
     }
   }
 );

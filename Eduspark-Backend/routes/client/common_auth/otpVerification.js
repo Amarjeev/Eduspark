@@ -32,14 +32,14 @@ otpVerificationRouter.post("/:role/verify-otp", async (req, res) => {
     if (storedOtp == fullOtp) {
       const token = await generateToken(userInfo, role);
 
-        res.cookie(`${role}_token`, token, {
+      res.cookie(`${role}_token`, token, {
         httpOnly: true,
         secure: true,
         sameSite: "None",
         maxAge: 24 * 60 * 60 * 1000, // 1 day
       });
-        // ✅ OTP retrieved, now delete it from Redis
-        await redisClient.del(`${role}_OTP:${email}`);
+      // ✅ OTP retrieved, now delete it from Redis
+      await redisClient.del(`${role}_OTP:${email}`);
 
       return res.status(200).json({
         status: true,
@@ -52,11 +52,7 @@ otpVerificationRouter.post("/:role/verify-otp", async (req, res) => {
       });
     }
   } catch (error) {
-    console.error("❌ OTP verification error:", error);
-    return res.status(500).json({
-      status: false,
-      message: "Internal server error during OTP verification.",
-    });
+    next(error);
   }
 });
 

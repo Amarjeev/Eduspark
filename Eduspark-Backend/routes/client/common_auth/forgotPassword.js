@@ -196,9 +196,7 @@ forgotPasswordRouter.post("/forgot-password/:role", async (req, res) => {
       });
     }
   } catch (error) {
-    // ❌ Catch and log any unexpected errors
-    console.error("Forgot password error:", error);
-    res.status(500).json({ success: false, message: "Internal server error." });
+    next(error);
   }
 });
 

@@ -10,7 +10,6 @@ const {
 const studentPaymentEmailTemplate = require("../../../../utils/emails_ui/studentPaymentEmailTemplate");
 const { sendEmail } = require("../../../../utils/email_Service/sendEmail");
 const redisClient = require("../../../../config/redis/redisClient");
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // 🔍 GET: Student Profile + Fee Structure + Paid Fee Records
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,8 +111,7 @@ addStudentFeeRouter.get(
       res.status(200).json(studentData);
     } catch (error) {
       // 🛑 Catch any server-side errors
-      console.error("❌ Error fetching student profile:", error);
-      res.status(500).json({ error: "🚨 Server error while fetching profile" });
+      next(error);
     }
   }
 );
@@ -257,11 +255,7 @@ addStudentFeeRouter.post(
         message: "Data is empty",
       });
     } catch (error) {
-      // 🛑 Catch and log unexpected errors
-      console.error("❌ Error adding student fee:", error);
-      return res.status(500).json({
-        error: "🚨 Internal server error while saving student fee",
-      });
+      next(error);
     }
   }
 );

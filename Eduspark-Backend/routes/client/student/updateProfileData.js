@@ -88,12 +88,7 @@ updateProfileDataRouter.post(
         message: "Password changed successfully.",
       });
     } catch (error) {
-      console.error("Password change error:", error.message);
-      return res.status(500).json({
-        success: false,
-        message: "Internal server error.",
-        error: error.message,
-      });
+      next(error);
     }
   }
 );

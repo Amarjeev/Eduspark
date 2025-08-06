@@ -100,11 +100,7 @@ studentSignupRoute.post(
         status: true,
       });
     } catch (error) {
-      console.error("Error during student signup:", error);
-      res.status(500).json({
-        message: "Failed to register student",
-        error: error.message,
-      });
+      next(error);
     }
   }
 );

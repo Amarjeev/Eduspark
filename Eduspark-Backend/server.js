@@ -6,6 +6,7 @@ require("dotenv").config();
 const connectDB = require("./config/db/db");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const logger = require("./utils/winston/logger");
 // const morgan = require("morgan"); // Optional: use for logging
 
 // ==========================
@@ -64,6 +65,8 @@ const getSchoolConfigDataRoute = require('./middleware/class&subject_dowload/get
 const sessionVerifyRoute = require('./middleware/tokenCheck/sessionVerifyRoute');
 const userProfileRouter = require('./middleware/User_profile_download/User_profile');
 const uploadImageRouter = require('./config/upload_images/upload');
+const errorHandler = require('./utils/winston/errorHandler')
+
 
 // ==========================
 //      INITIAL SETUP
@@ -76,7 +79,7 @@ const PORT = process.env.PORT || 5000;
 // ==========================
 app.use(express.json());
 app.use(cookieParser());
-// app.use(morgan("dev")); // Optional: enable for logging HTTP requests
+
 
 // CORS Setup
 app.use(cors({
@@ -89,6 +92,7 @@ app.use(cors({
   ],
   credentials: true,
 }));
+
 
 // ==========================
 //        ROUTES MOUNTING
@@ -151,8 +155,6 @@ app.use("/", userProfileRouter);
 app.use("/", uploadImageRouter);
 
 
-
-
 // ==========================
 //     HEALTH CHECK ROUTE
 // ==========================
@@ -160,16 +162,8 @@ app.get("/health", (_, res) => {
   res.status(200).json({ status: "✅ OK", message: "Server is running fine." });
 });
 
-// ==========================
-//     GLOBAL ERROR HANDLER
-// ==========================
-app.use((err, req, res, next) => {
-  console.error("🔥 Error:", err.stack);
-  res.status(500).json({
-    message: "Something went wrong!",
-    error: err.message,
-  });
-});
+
+
 
 // ==========================
 //     404 NOT FOUND HANDLER
@@ -181,6 +175,8 @@ app.use((req, res) => {
   });
 });
 
+// ✅ GLOBAL ERROR HANDLER LAST
+app.use(errorHandler);
 // ==========================
 //      START SERVER
 // ==========================
@@ -188,10 +184,10 @@ const startServer = async () => {
   try {
     await connectDB();
     app.listen(PORT, () => {
-      console.log(`🚀 Server running at http://localhost:${PORT}`);
+      logger.info(`🚀 Server running at http://localhost:${PORT}`);
     });
   } catch (error) {
-    console.error("❌ Failed to connect to MongoDB", error);
+    logger.error("❌ Failed to connect to MongoDB", error);
     process.exit(1);
   }
 };

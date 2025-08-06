@@ -1,10 +1,11 @@
 const express = require("express");
 const examMarkSchema = require("../../../../models/examMark");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 const studentSchema = require("../../../../models/student");
 const SubjectConfig = require("../../../../models/subjectConfig");
 const validateExamMarks = require("../../../../validators/validateExamMarks");
-
 const addExamMarkRoute = express.Router();
 
 addExamMarkRoute.post(
@@ -47,22 +48,19 @@ addExamMarkRoute.post(
         .status(200)
         .json({ success: true, student: response, subject: flatSubjects });
     } catch (error) {
-      console.error("❌ Error in addExamMarkRoute:", error.message);
-      return res
-        .status(500)
-        .json({ success: false, message: "❌ Internal Server Error" });
+      next(error);
     }
   }
 );
 
 addExamMarkRoute.post(
   "/add-marks/submit/:role",
-   verifyTokenByRole(),
+  verifyTokenByRole(),
   validateExamMarks,
   async (req, res) => {
-   try {
+    try {
       const { udisecode } = req.admin; // From token
-      const { examMark } = req.body;   // Submitted data
+      const { examMark } = req.body; // Submitted data
 
       // Create a new document with udisecode at top level
       const newExamMark = new examMarkSchema({
@@ -78,8 +76,7 @@ addExamMarkRoute.post(
 
       res.status(201).json({ message: "Exam marks submitted successfully!" });
     } catch (error) {
-      console.error("Error saving exam marks:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      next(error);
     }
   }
 );

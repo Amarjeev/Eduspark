@@ -40,8 +40,7 @@ studentControllerRouter.get(
 
       res.send(response); // Send marks as response
     } catch (error) {
-      console.error("Error fetching student marks:", error);
-      res.status(500).json({ message: "Internal Server Error" }); // Handle error
+ next(error);
     }
   }
 );
@@ -101,40 +100,11 @@ studentControllerRouter.get(
         response,
       });
     } catch (error) {
-      console.error("Error fetching attendance history:", error);
-      return res.status(500).json({
-        success: false,
-        message: "Internal server error.",
-      });
+ next(error);
     }
   }
 );
 
-// // ==============================
-// // Route: GET /students/:id
-// // Desc: Get single student profile by studentId
-// // ==============================
-// studentControllerRouter.get(
-//   "/students/:id/:role",
-//   verifyTokenByRole(), // Middleware to verify token
-//   async (req, res) => {
-//     try {
-//       const { role } = req.params;
-//       const { id } = req.params; // Student ID from URL
-//       const { udisecode } = req[role]; // Extract udise code
-
-//       // Fetch student based on ID and udise code
-//       const response = await studentSchema
-//         .findOne({ udisecode: udisecode, studentId: id })
-//         .lean();
-
-//       res.send(response); // Return student data
-//     } catch (error) {
-//       console.error("Error fetching student:", error);
-//       res.status(500).json({ error: "Internal Server Error" }); // Handle server error
-//     }
-//   }
-// );
 
 // Export router to use in main app
 module.exports = studentControllerRouter;

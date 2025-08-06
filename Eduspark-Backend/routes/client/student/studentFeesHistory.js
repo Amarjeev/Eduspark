@@ -12,14 +12,15 @@ studentFeesHistoryRouter.get(
     try {
       const { role } = req.params;
       const { employid, className, udisecode } = req[role];
-       const { studentId, studentClass } = req?.query;
+      const { studentId, studentClass } = req?.query;
 
       const student = await studentFeeSchema
         .findOne({
           udisecode,
           "studentData.studentId": employid || studentId,
           "studentData.className": className || studentClass,
-        }).select('paymentHistory balancePaying totalFee studentData')
+        })
+        .select("paymentHistory balancePaying totalFee studentData")
         .sort({ createdAt: -1 })
         .lean();
 
@@ -28,11 +29,7 @@ studentFeesHistoryRouter.get(
         data: student || {},
       });
     } catch (error) {
-      console.error("Error fetching student fee history:", error);
-      res.status(500).json({
-        success: false,
-        message: "Internal server error",
-      });
+      next(error);
     }
   }
 );

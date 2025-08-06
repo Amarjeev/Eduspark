@@ -1,5 +1,7 @@
 const express = require("express");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 const SubjectConfigSchema = require("../../../../models/subjectConfig");
 
 const SubjectsConfig = express.Router();
@@ -9,7 +11,7 @@ const SubjectsConfig = express.Router();
 // Purpose: Save a unique list of subjects for a particular school
 SubjectsConfig.post(
   "/admin/subjects/create",
-  verifyTokenByRole('admin'), // 🔐 Middleware to ensure the request is from an authenticated admin
+  verifyTokenByRole("admin"), // 🔐 Middleware to ensure the request is from an authenticated admin
   async (req, res) => {
     const { subjects, subjectId, status } = req.body; // 📨 Incoming subject list from frontend
     const { udisecode, schoolname } = req.admin; // 🏫 Extracting school details from token
@@ -26,7 +28,9 @@ SubjectsConfig.post(
         );
 
         // ✅ Respond if subject successfully deleted
-        return res.status(200).json({ status: true, message: "Subject deleted" });
+        return res
+          .status(200)
+          .json({ status: true, message: "Subject deleted" });
       }
 
       // ======================= 🧹 CLEAN & DEDUPLICATE SUBJECT INPUT =======================
@@ -79,10 +83,8 @@ SubjectsConfig.post(
               subjects: { $each: subjectArray },
             },
           },
-          { upsert: true } 
+          { upsert: true }
         );
-
-
 
         // ✅ Respond with success
         return res.status(201).json({
@@ -127,12 +129,7 @@ SubjectsConfig.post(
         status: true,
       });
     } catch (error) {
-      // ❌ Handle unexpected server/database errors
-      console.error("❌ Backend error while saving subjects:", error);
-      res.status(500).json({
-        error: "Failed to save subjects. Please try again later.",
-        status: false,
-      });
+      next(error);
     }
   }
 );
@@ -142,7 +139,7 @@ SubjectsConfig.post(
 // Purpose: Retrieve saved subjects for a logged-in school
 SubjectsConfig.get(
   "/admin/subjects/get",
-  verifyTokenByRole('admin'), // Middleware to validate admin login session
+  verifyTokenByRole("admin"), // Middleware to validate admin login session
   async (req, res) => {
     try {
       const { udisecode } = req.admin; // Get school identity from token
@@ -165,12 +162,7 @@ SubjectsConfig.get(
         data: existingSubjects.subjects, // Send subject array to frontend
       });
     } catch (error) {
-      // Step 4: Error handling for fetch failure
-      console.error("❌ Failed to fetch subjects:", error);
-      res.status(500).json({
-        error: "Failed to fetch subjects. Please try again.",
-        status: false,
-      });
+      next(error);
     }
   }
 );

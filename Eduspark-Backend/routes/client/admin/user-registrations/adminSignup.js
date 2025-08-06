@@ -70,11 +70,7 @@ adminSignupRoute.post("/admin/signup", validateAdminForm, async (req, res) => {
       message: "Admin registered successfully.",
     });
   } catch (error) {
-    console.error("Signup Error:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal Server Error. Please try again later.",
-    });
+    next(error);
   }
 });
 

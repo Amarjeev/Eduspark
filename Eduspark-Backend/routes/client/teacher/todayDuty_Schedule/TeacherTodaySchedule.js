@@ -1,7 +1,9 @@
 const express = require("express");
 const teacherDutyScheduleRouter = express.Router();
 const timetableSchema = require("../../../../models/timetable");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 
 // Middleware to protect the route (if you're using token-based access)
 
@@ -9,10 +11,9 @@ const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify
 teacherDutyScheduleRouter.get(
   "/teachers/duties/today",
   verifyTokenByRole("teacher"),
-    async (req, res) => {
-      const { udisecode, employid } = req.teacher;
+  async (req, res) => {
+    const { udisecode, employid } = req.teacher;
     try {
-
       const response = await timetableSchema.aggregate([
         {
           $match: {
@@ -37,8 +38,7 @@ teacherDutyScheduleRouter.get(
 
       res.status(200).json(response[0]?.entries || []);
     } catch (error) {
-      console.error("Error fetching teacher duty schedule:", error);
-      res.status(500).json({ message: "Something went wrong!" });
+      next(error);
     }
   }
 );

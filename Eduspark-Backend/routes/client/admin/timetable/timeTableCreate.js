@@ -3,13 +3,15 @@ const timetableConfig = express.Router();
 
 const teacherSchema = require("../../../../models/teacher");
 const timetableSchema = require("../../../../models/timetable");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 const validateTimetableEntry = require("../../../../validators/validateTimetableEntry");
 
 // 📘 Route: Get teacher name by ID (admin access only)
 timetableConfig.get(
   "/admin/data/teacher/:id",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   async (req, res) => {
     const { id } = req.params;
     const { udisecode } = req.admin;
@@ -39,11 +41,7 @@ timetableConfig.get(
       // ✅ Return teacher name
       res.status(200).json(response);
     } catch (error) {
-      console.error("❌ Error fetching teacher:", error);
-      res.status(500).json({
-        message: "Server error",
-        warning: "Something went wrong on the server. Please try again later",
-      });
+      next(error);
     }
   }
 );
@@ -51,7 +49,7 @@ timetableConfig.get(
 // 📘 Route: Save timetable entries (admin only)
 timetableConfig.post(
   "/admin/timetable/save",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   validateTimetableEntry,
   async (req, res) => {
     try {
@@ -93,16 +91,15 @@ timetableConfig.post(
           const existingEntries = existingDoc.entries || [];
 
           // 🔍 Filter out entries with same day + time (to avoid duplicates)
-          const newEntries = grouped[className].filter(newEntry => {
+          const newEntries = grouped[className].filter((newEntry) => {
             return !existingEntries.some(
-              oldEntry =>
+              (oldEntry) =>
                 oldEntry.day === newEntry.day && oldEntry.time === newEntry.time
             );
           });
 
           // ➕ If there are unique new entries, append them
           if (newEntries.length > 0) {
-
             await timetableSchema.findOneAndUpdate(
               { udisecode: udisecode, className: className },
               {
@@ -117,7 +114,6 @@ timetableConfig.post(
 
             appended.push({ className, added: newEntries.length });
           }
-
         } else {
           // 🆕 No document found → Create a new timetable for the class
           const newDoc = new timetableSchema({
@@ -139,10 +135,7 @@ timetableConfig.post(
         newlyAppendedEntries: appended,
       });
     } catch (error) {
-      console.error("❌ Error saving timetable:", error);
-      res.status(500).json({
-        error: "Something went wrong while saving the timetable.",
-      });
+      next(error);
     }
   }
 );

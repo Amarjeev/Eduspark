@@ -17,8 +17,7 @@ sessionVerifyRoute.get(
         isAuthenticated: true,
       });
     } catch (error) {
-      console.error("❌ Error in token verification:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      next(error);
     }
   }
 );

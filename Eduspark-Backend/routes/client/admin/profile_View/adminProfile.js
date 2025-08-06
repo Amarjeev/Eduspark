@@ -122,11 +122,7 @@ adminProfileRouter.post(
         updatedField: item,
       });
     } catch (error) {
-      console.error("Error in admin-profileEdit:", error.message);
-      res.status(500).json({
-        success: false,
-        message: "Internal Server Error",
-      });
+      next(error);
     }
   }
 );
@@ -172,11 +168,7 @@ adminProfileRouter.delete(
         message: "Admin account deleted successfully.",
       });
     } catch (error) {
-      console.error("Error deleting admin account:", error.message);
-      res.status(500).json({
-        success: false,
-        message: "Internal Server Error",
-      });
+      next(error);
     }
   }
 );

@@ -1,11 +1,13 @@
-const express = require('express');
+const express = require("express");
 const clientLogout = express.Router();
 const redisClient = require("../../../config/redis/redisClient");
 require("dotenv").config();
-const { verifyTokenByRole } = require("../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../middleware/verifyToken/verify_token");
 
 //common logout
-clientLogout.post('/logout/:role', async (req, res) => {
+clientLogout.post("/logout/:role", async (req, res) => {
   try {
     const { role } = req.params;
 
@@ -18,32 +20,29 @@ clientLogout.post('/logout/:role', async (req, res) => {
 
     // Call middleware and pass a custom callback to handle logout
     middleware(req, res, async () => {
-      const { udisecode, employid } = req[role]; 
+      const { udisecode, employid } = req[role];
 
-      const isProduction = process.env.NODE_ENV === 'production';
+      const isProduction = process.env.NODE_ENV === "production";
 
       // ✅ Clear the auth cookie
-      res.cookie(`${role}_token`, '', {
+      res.cookie(`${role}_token`, "", {
         expires: new Date(0),
         httpOnly: true,
         secure: isProduction,
-        sameSite: isProduction ? 'None' : 'Lax',
+        sameSite: isProduction ? "None" : "Lax",
       });
 
       // ✅ Clear Redis cache (NO need to stringify the keys to delete)
       await redisClient.del(`class-List:${udisecode}${employid}`);
       await redisClient.del(`subject-List:${udisecode}${employid}`);
 
-      return res.status(200).json({ success: true, message: `${role} logged out successfully.` });
+      return res
+        .status(200)
+        .json({ success: true, message: `${role} logged out successfully.` });
     });
-
   } catch (error) {
-    console.error('Logout error:', error.message);
-    res.status(500).json({ success: false, message: 'Logout failed. Please try again.' });
+    next(error);
   }
 });
-
-
-
 
 module.exports = clientLogout;

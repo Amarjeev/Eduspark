@@ -1,7 +1,9 @@
 const express = require("express");
 const getClassStudentsRouter = express.Router();
 const studentSchema = require("../../../../models/student");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 const redisClient = require("../../../../config/redis/redisClient");
 
 // 📚 Get students for a specific class, only for verified teachers
@@ -29,13 +31,9 @@ getClassStudentsRouter.get(
       // ✅ Send student data
       res.send(response);
     } catch (error) {
-      console.error("❌ Error fetching class students:", error);
-      res
-        .status(500)
-        .json({ message: "Internal server error. Unable to fetch students." });
+      next(error);
     }
   }
 );
-
 
 module.exports = getClassStudentsRouter;

@@ -3,7 +3,6 @@ const getSchoolConfigDataRoute = express.Router();
 
 const SubjectConfigSchema = require("../../models/classDivision");
 const subjectConfigSchema = require("../../models/subjectConfig");
-
 const redisClient = require("../../config/redis/redisClient");
 const { verifyTokenByRole } = require("../verifyToken/verify_token");
 
@@ -73,11 +72,7 @@ getSchoolConfigDataRoute.get(
         classes: classList || [],
       });
     } catch (error) {
-      console.error("❌ Error fetching config data:", error);
-      return res.status(500).json({
-        message: "Server error while fetching class & subject data.",
-        error,
-      });
+      next(error);
     }
   }
 );

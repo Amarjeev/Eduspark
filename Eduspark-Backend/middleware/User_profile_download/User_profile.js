@@ -5,7 +5,6 @@ const teacherSchema = require("../../models/teacher");
 const adminSchema = require("../../models/admin");
 const studentSchema = require("../../models/student");
 const parentSchema = require("../../models/parent");
-
 const { verifyTokenByRole } = require("../verifyToken/verify_token");
 
 // Map role to schema
@@ -30,15 +29,15 @@ userProfileRouter.get(
       }
 
       // Extract user info from token (set by middleware)
-      const {_id} = req[role];
+      const { _id } = req[role];
 
       if (!_id) {
         return res.status(401).json({ message: "Unauthorized access" });
       }
 
-          const userData = await UserSchema.findOne({ _id })
-            .select("-password")
-            .lean();
+      const userData = await UserSchema.findOne({ _id })
+        .select("-password")
+        .lean();
 
       if (!userData) {
         return res.status(404).json({ message: "User not found" });
@@ -46,8 +45,7 @@ userProfileRouter.get(
 
       res.status(200).json({ userData });
     } catch (error) {
-      console.error("Error fetching user profile:", error);
-      res.status(500).json({ message: "Internal Server Error" });
+      next(error);
     }
   }
 );
@@ -69,14 +67,9 @@ userProfileRouter.get(
         data: userData,
       });
     } catch (error) {
-      console.error("❌ Error fetching teacher profile:", error);
-      return res.status(500).json({
-        success: false,
-        message: "Internal server error",
-      });
+      next(error);
     }
   }
 );
-
 
 module.exports = userProfileRouter;

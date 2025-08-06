@@ -1,7 +1,9 @@
 const express = require("express");
 const editAndViewHomeworkRouter = express.Router();
 const HomeworkSchema = require("../../../../models/homework");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 const redisClient = require("../../../../config/redis/redisClient");
 const validateHomework = require("../../../../validators/validateHomework");
 
@@ -30,7 +32,7 @@ editAndViewHomeworkRouter.get(
         HomeworkSchema.find(filter)
           .select("className subject createdAt deadline") // ✂️ Select only required fields
           .skip(skipvalue) // ⏩ Skip documents for pagination
-          .limit(5),       // ⛔ Limit result to 5 entries per page
+          .limit(5), // ⛔ Limit result to 5 entries per page
       ]);
 
       // 📤 Send the result
@@ -39,10 +41,7 @@ editAndViewHomeworkRouter.get(
         data,
       });
     } catch (error) {
-      console.error("❌ Error in /teacher/homework:", error);
-      res
-        .status(500)
-        .json({ message: "Internal Server Error", error: error.message });
+      next(error);
     }
   }
 );
@@ -64,8 +63,7 @@ editAndViewHomeworkRouter.get(
       // 📤 Return homework data
       res.status(200).json(response);
     } catch (error) {
-      console.error("GET Error:", error);
-      res.status(500).json({ error: "Failed to fetch homework data" });
+      next(error);
     }
   }
 );
@@ -106,8 +104,7 @@ editAndViewHomeworkRouter.put(
         message: "✅ Homework updated successfully!",
       });
     } catch (error) {
-      console.error("PUT Error:", error);
-      res.status(500).json({ error: "Failed to update homework" });
+      next(error);
     }
   }
 );

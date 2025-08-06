@@ -1,11 +1,13 @@
 const express = require("express");
 const teacherAccessServiceRouter = express.Router();
 const teacherSchema = require("../../../../models/teacher");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 
 teacherAccessServiceRouter.post(
   "/admin/teacher-access/:status",
-  verifyTokenByRole('admin'),
+  verifyTokenByRole("admin"),
   async (req, res) => {
     try {
       const { status } = req.params;
@@ -17,26 +19,25 @@ teacherAccessServiceRouter.post(
         res.status(200).send(response);
       }
       if (status === "assigned-classes") {
-          const {teacherId,assignedClasses} = req.body;
-         // 🧠 Update assignedClasses for the selected teacher
-    const updatedTeacher = await teacherSchema.findByIdAndUpdate(
-      teacherId,
-      { assignedClasses },
-      { new: true } // return updated document
-    );
+        const { teacherId, assignedClasses } = req.body;
+        // 🧠 Update assignedClasses for the selected teacher
+        const updatedTeacher = await teacherSchema.findByIdAndUpdate(
+          teacherId,
+          { assignedClasses },
+          { new: true } // return updated document
+        );
 
-    if (!updatedTeacher) {
-      return res.status(404).send({ message: "Teacher not found" });
-    }
+        if (!updatedTeacher) {
+          return res.status(404).send({ message: "Teacher not found" });
+        }
 
-    // ✅ Send success response
-    return res.status(200).send({
-      message: "Assigned classes updated successfully",
-    });
+        // ✅ Send success response
+        return res.status(200).send({
+          message: "Assigned classes updated successfully",
+        });
       }
     } catch (error) {
-      console.error("Error in /admin/teacher-access/:status:", error);
-      res.status(500).json({ error: "Internal server error" });
+      next(error);
     }
   }
 );

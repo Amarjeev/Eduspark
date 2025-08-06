@@ -27,12 +27,6 @@ studentHomeworkRouter.get(
       const validHomeworks = homeworks.filter(
         (hw) => new Date(hw.deadline) > now
       );
-      // const validHomeworks = homeworks.filter((hw) => {
-      //   const deadlineDate = new Date(hw.deadline);
-      //   const diffInTime = deadlineDate.getTime() - now.getTime(); // future
-      //   const diffInDays = diffInTime / (1000 * 60 * 60 * 24);
-      //   return diffInDays >= 0 && diffInDays <= 30; // deadline is within next 30 days
-      // });
 
       if (homeworks.length === 0) {
         return res.status(200).json({
@@ -49,12 +43,7 @@ studentHomeworkRouter.get(
         time: now,
       });
     } catch (error) {
-      console.error("❌ Error in /get-homework route:", error);
-      res.status(500).json({
-        success: false,
-        message: "Failed to fetch homework",
-        error: error?.message || "Unknown error",
-      });
+      next(error);
     }
   }
 );
@@ -67,7 +56,6 @@ studentHomeworkRouter.post(
       const { role } = req.params;
       const { employid, className, udisecode } = req[role];
       const data = req.body;
-
 
       // ✅ 1. Check homework status
       if (data.status !== "active") {
@@ -128,8 +116,7 @@ studentHomeworkRouter.post(
         message: "✅ Answer submitted successfully.",
       });
     } catch (error) {
-      console.error("❌ Error submitting homework answer:", error);
-      res.status(500).json("Something went wrong while submitting the answer.");
+      next(error);
     }
   }
 );
@@ -153,8 +140,7 @@ studentHomeworkRouter.get(
 
       res.status(200).json({ success: true, data: response });
     } catch (error) {
-      console.error("Error fetching answer:", error);
-      res.status(500).json({ success: false, message: "Server error", error });
+      next(error);
     }
   }
 );

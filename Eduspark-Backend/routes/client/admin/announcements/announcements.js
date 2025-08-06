@@ -5,7 +5,6 @@ const {
   verifyTokenByRole,
 } = require("../../../../middleware/verifyToken/verify_token");
 const sendAnnouncementToRoles = require("../../../../utils/emails_ui/sendAnnouncementToRoles");
-
 // const Student = require("../../../../models/Student");
 const Teacher = require("../../../../models/teacher");
 // const Parent = require("../../../../models/Parent");
@@ -42,8 +41,7 @@ announcementsRouter.post(
 
       res.status(201).json({ success: true });
     } catch (error) {
-      console.error("Error creating announcement:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      next(error);
     }
   }
 );
@@ -77,11 +75,7 @@ announcementsRouter.get(
 
       res.status(200).json({ response, count });
     } catch (error) {
-      console.error("Error fetching announcements:", error);
-      res.status(500).json({
-        error:
-          "Something went wrong while fetching announcements. Please try again later.",
-      });
+      next(error);
     }
   }
 );
@@ -120,11 +114,7 @@ announcementsRouter.put(
 
       res.status(200).json({ success: true });
     } catch (error) {
-      console.error("Error updating announcement:", error);
-      res.status(500).json({
-        error:
-          "Something went wrong while updating the announcement. Please try again later.",
-      });
+      next(error);
     }
   }
 );
@@ -144,11 +134,7 @@ announcementsRouter.delete(
 
       res.status(200).json({ success: true });
     } catch (error) {
-      console.error("Error deleting announcement:", error);
-      res.status(500).json({
-        error:
-          "Something went wrong while deleting the announcement. Please try again later.",
-      });
+      next(error);
     }
   }
 );

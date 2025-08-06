@@ -45,9 +45,7 @@ fetchChildrenListRouter.get(
 
       res.status(200).json({ students: studentList });
     } catch (error) {
-      // ❌ Handle unexpected errors
-      console.error("Error fetching student list:", error);
-      res.status(500).json({ message: "Internal Server Error" });
+      next(error);
     }
   }
 );
@@ -60,9 +58,11 @@ fetchChildrenListRouter.get(
       const { studentId, role } = req.params;
       const { udisecode } = req[role];
 
-         // ⚠️ 3. If not found
+      // ⚠️ 3. If not found
       if (!studentId || !udisecode) {
-        return res.status(404).json({ message: "studentId or udisecode not found" });
+        return res
+          .status(404)
+          .json({ message: "studentId or udisecode not found" });
       }
 
       const cacheKey = `student_profile:${studentId}_${udisecode}`;
@@ -70,8 +70,8 @@ fetchChildrenListRouter.get(
       // 🧠 1. Try fetching from Redis cache first
       const cached = await redisClient.get(cacheKey);
       if (cached) {
-          return res.status(200).json( cached );
-        }
+        return res.status(200).json(cached);
+      }
 
       const studentData = await studentSchema
         .findOne({ studentId: studentId, udisecode: udisecode })
@@ -86,10 +86,9 @@ fetchChildrenListRouter.get(
       await redisClient.set(cacheKey, JSON.stringify(studentData), { ex: 300 });
 
       // ✅ 5. Return response
-      res.status(200).json( studentData );
+      res.status(200).json(studentData);
     } catch (error) {
-      console.error("Error fetching student data:", error);
-      res.status(500).json({ message: "Internal Server Error" });
+      next(error);
     }
   }
 );

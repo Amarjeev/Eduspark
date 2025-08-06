@@ -101,10 +101,7 @@ forgotUdisecodeRouter.post("/forgot-udisecode", async (req, res) => {
     // If email not found in DB
     return res.status(404).json({ success: false, message: "email" });
   } catch (error) {
-    console.error("Forgot UDISECode error:", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error." });
+    next(error);
   }
 });
 

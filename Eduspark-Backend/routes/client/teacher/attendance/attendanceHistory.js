@@ -1,7 +1,9 @@
 const express = require("express");
 const attendanceHistoryRouter = express.Router();
 const attendanceSchema = require("../../../../models/attendance");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 
 // Route to get attendance history
 attendanceHistoryRouter.get(
@@ -14,17 +16,15 @@ attendanceHistoryRouter.get(
 
       // Fetch attendance records from MongoDB
       const response = await attendanceSchema
-        .find({ udiseCode:udisecode, className: className, date: date })
+        .find({ udiseCode: udisecode, className: className, date: date })
         .select(`teacherName date attendanceRecords className -_id`)
         .lean();
 
       if (response.length === 0) {
-        return res
-          .status(404)
-          .json({
-            responseMsg:
-              "⚠️ No attendance records found for the selected date and class.",
-          });
+        return res.status(404).json({
+          responseMsg:
+            "⚠️ No attendance records found for the selected date and class.",
+        });
       }
 
       // If status is 'All', return the full response
@@ -58,7 +58,7 @@ attendanceHistoryRouter.get(
         });
       }
     } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
+      next(error);
     }
   }
 );

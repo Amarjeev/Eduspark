@@ -85,11 +85,7 @@ parentSignupRouter.post(
         message: "✅ Signup successful. Welcome email sent!",
       });
     } catch (error) {
-      console.error("❌ Signup Error:", error.message);
-      return res.status(500).json({
-        success: false,
-        message: "🚨 Internal server error during signup.",
-      });
+      next(error);
     }
   }
 );
@@ -160,12 +156,10 @@ parentSignupRouter.post(
               .status(400)
               .json({ message: "Mobile number is required" });
           if (!/^[6-9]\d{9}$/.test(value)) {
-            return res
-              .status(400)
-              .json({
-                message:
-                  "Mobile number must be a valid 10-digit Indian number starting with 6-9",
-              });
+            return res.status(400).json({
+              message:
+                "Mobile number must be a valid 10-digit Indian number starting with 6-9",
+            });
           }
         }
       }
@@ -198,8 +192,7 @@ parentSignupRouter.post(
 
       res.status(200).json({ message: "Profile updated successfully" });
     } catch (error) {
-      console.error("Update error:", error.message);
-      res.status(500).json({ message: "Server error", error: error.message });
+      next(error);
     }
   }
 );

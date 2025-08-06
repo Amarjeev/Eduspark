@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-
 // Retrieve the JWT secret key from environment variables
 const jwt_key = process.env.jwt_key;
 
@@ -23,10 +22,8 @@ function verifyTokenByRole(role) {
       req[effectiveRole.toLowerCase()] = decoded;
 
       next();
-    } catch (err) {
-      return res
-        .status(401)
-        .json({ message: "Unauthorized: Invalid or expired token" });
+    } catch (error) {
+      next(error);
     }
   };
 }

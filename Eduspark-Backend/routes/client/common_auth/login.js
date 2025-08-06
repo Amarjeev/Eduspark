@@ -77,10 +77,8 @@ LoginRouter.post("/:role/auth/login", async (req, res) => {
       `Your Eduspark login OTP is: ${otp}`, // plain text version
       html // styled HTML version
     );
-
   } catch (error) {
-    // 🚨 Catch and log any errors during the login process
-    console.error("🚨 Login error:", error);
+    next(error);
   }
 });
 
@@ -121,11 +119,7 @@ LoginRouter.post("/check-udisecode", async (req, res) => {
       .status(200)
       .json({ success: true, schoolName: school.schoolname });
   } catch (error) {
-    console.error("Error checking UDISE:", error);
-    res.status(500).json({
-      success: false,
-      message: "Server error. Please try again later.",
-    });
+    next(error);
   }
 });
 

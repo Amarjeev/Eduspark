@@ -1,19 +1,6 @@
-version: "3.9"
-
 services:
-  frontend:
-    build: ./Eduspark-Frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./eduspark-client:/app
-    working_dir: /app
-    environment:
-      - NODE_ENV=production
-    command: npm run start 
-
   backend:
-    build: ./Eduspark-Backend
+    build: .
     ports:
       - "5001:5000"
     volumes:

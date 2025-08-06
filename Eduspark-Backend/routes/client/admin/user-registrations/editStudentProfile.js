@@ -28,10 +28,7 @@ editStudentProfileRouter.get(
 
       return res.status(200).send(response); // ✅ Send the list of students
     } catch (error) {
-      console.error("Error fetching student list:", error);
-      return res
-        .status(500)
-        .send({ message: "Server error while fetching student list" });
+      next(error);
     }
   }
 );
@@ -73,11 +70,7 @@ editStudentProfileRouter.post(
 
       return res.status(200).send({ success: true }); // ✅ Send success response
     } catch (error) {
-      console.error("Error in student action handler:", error);
-      res.status(500).json({
-        message: "Failed to process student action",
-        error: error.message,
-      });
+      next(error);
     }
   }
 );
@@ -117,12 +110,7 @@ editStudentProfileRouter.delete(
         data: updatedStudent,
       });
     } catch (error) {
-      console.error("Error soft-deleting student:", error);
-      res.status(500).json({
-        success: false,
-        message: "Failed to soft-delete student",
-        error: error.message,
-      });
+      next(error);
     }
   }
 );

@@ -1,15 +1,17 @@
 const express = require("express");
 const updateStudentAttendanceRouter = express.Router();
 const attendanceSchema = require("../../../../models/attendance");
-const { verifyTokenByRole } = require("../../../../middleware/verifyToken/verify_token");
+const {
+  verifyTokenByRole,
+} = require("../../../../middleware/verifyToken/verify_token");
 const validateAttendanceForm = require("../../../../validators/validateAttendance");
 
 // 📝 Route: Submit student attendance by teacher
 // 🔒 Protected Route - Only accessible by users with "teacher" role
 updateStudentAttendanceRouter.post(
   "/teacher/updateStudentAttendance",
-  verifyTokenByRole("teacher"),        // 🔐 Middleware to verify JWT and role
-  validateAttendanceForm,              // ✅ Custom validator for attendance data
+  verifyTokenByRole("teacher"), // 🔐 Middleware to verify JWT and role
+  validateAttendanceForm, // ✅ Custom validator for attendance data
   async (req, res) => {
     try {
       // 📦 Destructure submitted fields from request body
@@ -23,11 +25,13 @@ updateStudentAttendanceRouter.post(
       } = req.body;
 
       // 🔁 Check for duplicate attendance already submitted
-      const checkDuplicate = await attendanceSchema.find({
-        udisecode: udisecode,
-        date: date,
-        className: className,
-      }).lean();
+      const checkDuplicate = await attendanceSchema
+        .find({
+          udisecode: udisecode,
+          date: date,
+          className: className,
+        })
+        .lean();
 
       // ⚠️ If record exists for this class, date, and school, reject submission
       if (checkDuplicate.length > 0) {
@@ -38,7 +42,6 @@ updateStudentAttendanceRouter.post(
             "⚠️ This attendance record already exists for the selected class and date.",
         });
       }
-
 
       // 🏗️ Construct a new attendance document
       const newAttendance = new attendanceSchema({
@@ -58,11 +61,7 @@ updateStudentAttendanceRouter.post(
         .status(201)
         .json({ message: "Attendance saved successfully!" });
     } catch (error) {
-      // ❌ Catch unexpected errors
-      console.error("❌ Error saving attendance:", error);
-      return res.status(500).json({
-        message: "Internal server error. Could not save attendance.",
-      });
+      next(error);
     }
   }
 );
