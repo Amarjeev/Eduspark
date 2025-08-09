@@ -45,7 +45,7 @@ function EntryHome() {
     }
    } catch (error) {
      setLoading(false)
-    showError('Something went wrong while verifying the code. Please try again later.');
+     showError('Something went wrong while verifying the code. Please try again later.');
   }
 };
 

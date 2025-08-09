@@ -118,6 +118,10 @@ LoginRouter.post("/check-udisecode", async (req, res) => {
       .status(200)
       .json({ success: true, schoolName: school.schoolname });
   } catch (error) {
+    return res.status(500).json({
+      message:
+        error.message || "Something went wrong while fetching the school name",
+    });
     next(error);
   }
 });

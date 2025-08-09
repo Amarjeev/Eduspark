@@ -7,14 +7,12 @@ const connectDB = require("./config/db/db");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const logger = require("./utils/winston/logger");
-// const morgan = require("morgan"); // Optional: use for logging
 
 // ==========================
 //         ROUTES IMPORTS
 // ==========================
 
-const searchSchool=require('./get_SchoolName_api/schoolController')
-
+const searchSchool = require("./get_SchoolName_api/schoolController");
 
 // Admin Routes
 const clientLogout = require("./routes/client/logout/logout");
@@ -27,71 +25,70 @@ const classDivisionConfig = require("./routes/client/admin/schoolConfig/classDiv
 const SubjectsConfig = require("./routes/client/admin/schoolConfig/SubjectsConfig");
 const studentSignupRoute = require("./routes/client/admin/user-registrations/studentSignup");
 const addExamMarkRoute = require("./routes/client/admin/addMark/addExamMark");
-const schoolFeeStructureRouter = require('./routes/client/admin/fees_management/schoolFeeStructure');
-const feeRecordsRouter = require('./routes/client/admin/fees_management/feeRecords');
-const addStudentFeeRouter = require('./routes/client/admin/fees_management/addStudentFee');
-const timetableConfig = require('./routes/client/admin/timetable/timeTableCreate');
-const AllClassTimetableRouter = require('./routes/client/admin/timetable/AllClassTimetable');
-const teacherAccessServiceRouter = require('./routes/client/admin/user_Roles_Permission/teacherAccessService');
-const announcementsRouter = require('./routes/client/admin/announcements/announcements');
-const editStudentProfileRouter = require('./routes/client/admin/user-registrations/editStudentProfile');
-const adminProfileRouter=require('./routes/client/admin/profile_View/adminProfile');
+const schoolFeeStructureRouter = require("./routes/client/admin/fees_management/schoolFeeStructure");
+const feeRecordsRouter = require("./routes/client/admin/fees_management/feeRecords");
+const addStudentFeeRouter = require("./routes/client/admin/fees_management/addStudentFee");
+const timetableConfig = require("./routes/client/admin/timetable/timeTableCreate");
+const AllClassTimetableRouter = require("./routes/client/admin/timetable/AllClassTimetable");
+const teacherAccessServiceRouter = require("./routes/client/admin/user_Roles_Permission/teacherAccessService");
+const announcementsRouter = require("./routes/client/admin/announcements/announcements");
+const editStudentProfileRouter = require("./routes/client/admin/user-registrations/editStudentProfile");
+const adminProfileRouter = require("./routes/client/admin/profile_View/adminProfile");
 // Common Auth
 const teacherLoginRouter = require("./routes/client/common_auth/login");
-const otpVerificationRouter = require('./routes/client/common_auth/otpVerification');
-const resendOtpRouter = require('./routes/client/common_auth/resendOtp');
+const otpVerificationRouter = require("./routes/client/common_auth/otpVerification");
+const resendOtpRouter = require("./routes/client/common_auth/resendOtp");
 
 // Teacher Routes
-const teacherDutyScheduleRouter = require('./routes/client/teacher/todayDuty_Schedule/TeacherTodaySchedule');
-const getStudentsByClassRouter = require('./routes/client/teacher/attendance/getStudentsByClass');
-const updateStudentAttendanceRouter = require('./routes/client/teacher/attendance/updateStudentAttendance');
-const attendanceHistoryRouter = require('./routes/client/teacher/attendance/attendanceHistory');
-const getClassStudentsRouter = require('./routes/client/teacher/students_List/getClassStudents');
-const studentControllerRouter = require('./routes/client/teacher/students_List/StudentDetails');
-const ClassWiseTTTeacherRouter = require('./routes/client/teacher/timetable/ClassWiseTimetableForTeacher');
-const assignHomeworkRouter = require('./routes/client/teacher/homework/assignHomework');
-const editAndViewHomeworkRouter = require('./routes/client/teacher/homework/editAndViewHomework');
-const verifyHomeworkRouter = require('./routes/client/teacher/HomeworkArchive/verifyHomework');
+const teacherDutyScheduleRouter = require("./routes/client/teacher/todayDuty_Schedule/TeacherTodaySchedule");
+const getStudentsByClassRouter = require("./routes/client/teacher/attendance/getStudentsByClass");
+const updateStudentAttendanceRouter = require("./routes/client/teacher/attendance/updateStudentAttendance");
+const attendanceHistoryRouter = require("./routes/client/teacher/attendance/attendanceHistory");
+const getClassStudentsRouter = require("./routes/client/teacher/students_List/getClassStudents");
+const studentControllerRouter = require("./routes/client/teacher/students_List/StudentDetails");
+const ClassWiseTTTeacherRouter = require("./routes/client/teacher/timetable/ClassWiseTimetableForTeacher");
+const assignHomeworkRouter = require("./routes/client/teacher/homework/assignHomework");
+const editAndViewHomeworkRouter = require("./routes/client/teacher/homework/editAndViewHomework");
+const verifyHomeworkRouter = require("./routes/client/teacher/HomeworkArchive/verifyHomework");
 // Student/Parent Routes
-const studentProfileRouter = require('./routes/client/student/studentProfile');
-const updateProfileDataRouter = require('./routes/client/student/updateProfileData');
-const studentHomeworkRouter = require('./routes/client/student/studentHomework');
-const studentFeesHistoryRouter = require('./routes/client/student/studentFeesHistory');
-const parentSignupRouter = require('./routes/client/parents/user-registrations/parentSignup');
-const fetchChildrenListRouter = require('./routes/client/parents/students/fetchChildrenList');
-const verifiedSubmittedHomeworkRouter = require('./routes/client/student/verifiedSubmittedHomework');
+const studentProfileRouter = require("./routes/client/student/studentProfile");
+const updateProfileDataRouter = require("./routes/client/student/updateProfileData");
+const studentHomeworkRouter = require("./routes/client/student/studentHomework");
+const studentFeesHistoryRouter = require("./routes/client/student/studentFeesHistory");
+const parentSignupRouter = require("./routes/client/parents/user-registrations/parentSignup");
+const fetchChildrenListRouter = require("./routes/client/parents/students/fetchChildrenList");
+const verifiedSubmittedHomeworkRouter = require("./routes/client/student/verifiedSubmittedHomework");
 // Middleware Routes
-const getSchoolConfigDataRoute = require('./middleware/class&subject_dowload/getSchoolConfigData');
-const sessionVerifyRoute = require('./middleware/tokenCheck/sessionVerifyRoute');
-const userProfileRouter = require('./middleware/User_profile_download/User_profile');
-const uploadImageRouter = require('./config/upload_images/upload');
-const errorHandler = require('./utils/winston/errorHandler')
-
+const getSchoolConfigDataRoute = require("./middleware/class&subject_dowload/getSchoolConfigData");
+const sessionVerifyRoute = require("./middleware/tokenCheck/sessionVerifyRoute");
+const userProfileRouter = require("./middleware/User_profile_download/User_profile");
+const uploadImageRouter = require("./config/upload_images/upload");
+const errorHandler = require("./utils/winston/errorHandler");
 
 // ==========================
 //      INITIAL SETUP
 // ==========================
 const app = express();
-const PORT = process.env.PORT || 5000;
-
+const PORT = 5000;
 // ==========================
 //        MIDDLEWARES
 // ==========================
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",       // Local dev
+      "https://www.eduspark.space",  // Main frontend
+      "https://eduspark.space"       // Without www
+    ],
+     allowedHeaders: ['Authorization', 'Content-Type'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+  })
+);
 
-// CORS Setup
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://eduspark-frontend-client.vercel.app",
-    "https://eduspark-frontend-client-amarjeev-ms-projects.vercel.app",
-    "https://eduspark-frontend-client-git-main-amarjeev-ms-projects.vercel.app",
-    "https://eduspark-frontend-client-jyf8dr95u-amarjeev-ms-projects.vercel.app"
-  ],
-  credentials: true,
-}));
 
 
 // ==========================
@@ -146,14 +143,11 @@ app.use("/", parentSignupRouter);
 app.use("/", fetchChildrenListRouter);
 app.use("/", verifiedSubmittedHomeworkRouter);
 
-
-
 // -- Middleware --
 app.use("/", getSchoolConfigDataRoute);
 app.use("/", sessionVerifyRoute);
 app.use("/", userProfileRouter);
 app.use("/", uploadImageRouter);
-
 
 // ==========================
 //     HEALTH CHECK ROUTE
@@ -161,9 +155,6 @@ app.use("/", uploadImageRouter);
 app.get("/health", (_, res) => {
   res.status(200).json({ status: "✅ OK", message: "Server is running fine." });
 });
-
-
-
 
 // ==========================
 //     404 NOT FOUND HANDLER
@@ -183,8 +174,8 @@ app.use(errorHandler);
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(PORT, () => {
-      logger.info(`🚀 Server running at http://localhost:${PORT}`);
+    app.listen(PORT, '0.0.0.0', () => {
+      logger.info(`🚀 Server running at http://:${PORT}`);
     });
   } catch (error) {
     logger.error("❌ Failed to connect to MongoDB", error);

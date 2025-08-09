@@ -63,3 +63,4 @@ Desktop.ini
 *.ost
 .env
 .env.local
+.ec2-key.pem
