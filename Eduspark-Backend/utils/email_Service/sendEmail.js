@@ -9,11 +9,12 @@ const sendEmail = async (to, subject, messageText, htmlContent) => {
     Message: {
       Subject: { Data: subject },
       Body: {
-        Text: { Data: messageText }, // optional fallback
-        Html: { Data: htmlContent }, // ✅ the HTML part
+        Text: { Data: messageText },
+        Html: { Data: htmlContent },
       },
     },
   };
+
 
   try {
     const result = await ses.sendEmail(params).promise();

@@ -6,7 +6,7 @@ const adminEmailTemplate = require("../../../../utils/emails_ui/adminEmailTempla
 const { sendEmail } = require("../../../../utils/email_Service/sendEmail");
 const bcrypt = require("bcrypt");
 
-adminSignupRoute.post("/admin/signup", validateAdminForm, async (req, res) => {
+adminSignupRoute.post("/admin/signup", validateAdminForm, async (req, res ,next) => {
   try {
     const data = req.body;
 

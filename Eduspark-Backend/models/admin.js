@@ -29,8 +29,6 @@ const clientAdminSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      unique: true,
-      match: /^(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/, // 8+ chars, one lowercase, one digit
     },
 
     phonenumber: {

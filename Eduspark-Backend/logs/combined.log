@@ -114,3 +114,63 @@
 2025-08-08 11:49:57 info: 🚀 Server running at http://:5000
 2025-08-08 11:50:18 info: ✅ MongoDB Atlas connected
 2025-08-08 11:50:18 info: 🚀 Server running at http://:5000
+2025-08-09 21:33:18 info: ✅ MongoDB Atlas connected
+2025-08-09 21:33:18 info: 🚀 Server running at http://:5000
+2025-08-09 21:39:49 error: ReferenceError: next is not defined
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\routes\client\admin\user-registrations\adminSignup.js:73:5
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-08-09 21:39:56 error: ReferenceError: next is not defined
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\routes\client\admin\user-registrations\adminSignup.js:73:5
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-08-09 21:46:59 info: ✅ MongoDB Atlas connected
+2025-08-09 21:46:59 info: 🚀 Server running at http://:5000
+2025-08-09 21:47:35 error: ValidationError: SchoolAdmin validation failed: password: Path `password` is invalid ($2b$10$sYiQwIBzDItDmgQ1GxielekhtW4eSYdsGWdd8MJ.xnMQU9kvNjR.O).
+    at Document.invalidate (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\document.js:3343:32)
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\document.js:3104:17
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\schemaType.js:1407:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+2025-08-09 21:48:09 info: ✅ MongoDB Atlas connected
+2025-08-09 21:48:10 info: 🚀 Server running at http://:5000
+2025-08-09 21:48:22 error: ReferenceError: next is not defined
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\routes\client\admin\user-registrations\adminSignup.js:73:5
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-08-09 21:48:37 info: ✅ MongoDB Atlas connected
+2025-08-09 21:48:37 info: 🚀 Server running at http://:5000
+2025-08-09 21:48:40 error: ValidationError: SchoolAdmin validation failed: password: Path `password` is invalid ($2b$10$HajC8awe2kjC8iyyRLZ4Au0.W0Oga0lBswLjJxJyM7XV/XlMqkbF2).
+    at Document.invalidate (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\document.js:3343:32)
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\document.js:3104:17
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\schemaType.js:1407:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+2025-08-09 21:49:38 info: ✅ MongoDB Atlas connected
+2025-08-09 21:49:38 info: 🚀 Server running at http://:5000
+2025-08-09 21:49:46 error: ValidationError: SchoolAdmin validation failed: password: Path `password` is invalid ($2b$10$ADvT/g6PBBmG8GTNvaTJtO93P6NbhO8k2ZnPtIBgNN74Qj32jAzBO).
+    at Document.invalidate (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\document.js:3343:32)
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\document.js:3104:17
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\schemaType.js:1407:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+2025-08-09 21:50:18 info: ✅ MongoDB Atlas connected
+2025-08-09 21:50:18 info: 🚀 Server running at http://:5000
+2025-08-09 21:50:21 error: ValidationError: SchoolAdmin validation failed: password: Path `password` is invalid ($2b$10$Qt4LkvQhwIsxIZ/18Lr6Se54dn0h52Qei.YeWMMuiVX6YOxot64Wi).
+    at Document.invalidate (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\document.js:3343:32)
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\document.js:3104:17
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\mongoose\lib\schemaType.js:1407:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+2025-08-09 21:51:04 info: ✅ MongoDB Atlas connected
+2025-08-09 21:51:04 info: 🚀 Server running at http://:5000
+2025-08-09 21:51:34 info: ✅ MongoDB Atlas connected
+2025-08-09 21:51:34 info: 🚀 Server running at http://:5000
+2025-08-09 21:51:57 info: ✅ MongoDB Atlas connected
+2025-08-09 21:51:57 info: 🚀 Server running at http://:5000
+2025-08-09 21:52:22 error: MessageRejected: Email address is not verified. The following identities failed the check in region AP-SOUTH-1: amarjeevms@gmail.com
+    at Request.extractError (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\aws-sdk\lib\protocol\query.js:50:29)
+    at Request.callListeners (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\aws-sdk\lib\sequential_executor.js:106:20)
+    at Request.emit (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\aws-sdk\lib\sequential_executor.js:78:10)
+    at Request.emit (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\aws-sdk\lib\request.js:686:14)
+    at Request.transition (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\aws-sdk\lib\request.js:22:10)
+    at AcceptorStateMachine.runTo (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\aws-sdk\lib\state_machine.js:14:12)
+    at C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\aws-sdk\lib\state_machine.js:26:10
+    at Request.<anonymous> (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\aws-sdk\lib\request.js:38:9)
+    at Request.<anonymous> (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\aws-sdk\lib\request.js:688:12)
+    at Request.callListeners (C:\Users\dell\OneDrive\Desktop\Eduspark\Eduspark-Backend\node_modules\aws-sdk\lib\sequential_executor.js:116:18)
+2025-08-09 22:24:44 info: ✅ MongoDB Atlas connected
+2025-08-09 22:24:44 info: 🚀 Server running at http://:5000

@@ -44,6 +44,7 @@ function AttendanceForm() {
   // 💾 Load saved data from IndexedDB on mount
   useEffect(() => {
     (async () => {
+      setLoading(true);
 const storedClass = await getFromIndexedDB(`selectedClass_${role}`);
 const storedDate = await getFromIndexedDB(`attendanceDate_${role}`);
 const storedAttendance = await getFromIndexedDB(`attendance_${role}`);
@@ -55,6 +56,7 @@ const storedDupMsg = await getFromIndexedDB(`duplicateMessage_${role}`);
       if (storedAttendance) setAttendance(storedAttendance);
       if (storedDupDate) setSavedDate(storedDupDate);
       if (storedDupMsg) setDuplicateError(storedDupMsg);
+      setLoading(false);
     })();
   }, []);
 
@@ -87,12 +89,14 @@ const storedDupMsg = await getFromIndexedDB(`duplicateMessage_${role}`);
   // 📚 Fetch class list & teacher info from IndexedDB
   useEffect(() => {
     const fetchClassList = async () => {
+      setLoading(true);
       const classData = await getFromIndexedDB(`school-class-List-${role}`);
       const userProfileData = await getFromIndexedDB(`${role}_ProfileData`);
       setTeacherId(userProfileData.employId);
       setTeacherName(userProfileData.name);
       setUdiseCode(userProfileData.udisecode);
       setFinalClassOptions(classData);
+      setLoading(false);
     };
     fetchClassList();
   }, []);
@@ -178,7 +182,7 @@ const storedDupMsg = await getFromIndexedDB(`duplicateMessage_${role}`);
     const emptyStatusStudents = formatted.filter((d) => d.status === '');
     if (emptyStatusStudents.length > 0) {
       setLoading(false);
-      return alert(`⚠️ ${emptyStatusStudents.length} student(s) have unmarked attendance. Please mark everyone before submitting.`);
+      return showError(`⚠️ ${emptyStatusStudents.length} student(s) have unmarked attendance. Please mark everyone before submitting.`);
     }
 
     // 🧾 Attendance summary object
@@ -193,7 +197,7 @@ const storedDupMsg = await getFromIndexedDB(`duplicateMessage_${role}`);
 
     // 🚫 Prevent duplicate entry
     if (duplicateError && savedDate === attendanceDate) {
-      alert(`⚠️ Please choose a different date. You selected: ${summary.date}, but attendance was already submitted for: ${attendanceDate}`);
+      showError(`⚠️ Please choose a different date. You selected: ${summary.date}, but attendance was already submitted for: ${attendanceDate}`);
       setLoading(false);
       return;
     } else {
