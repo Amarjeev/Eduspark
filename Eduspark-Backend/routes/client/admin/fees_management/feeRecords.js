@@ -8,7 +8,7 @@ const {
 feeRecordsRouter.get(
   "/admin/fees/records/:selectedClass",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { selectedClass } = req.params;
       const { udisecode } = req.admin;
@@ -31,7 +31,7 @@ feeRecordsRouter.get(
 feeRecordsRouter.get(
   "/admin/fees/history/:id",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { id } = req.params;
       const { udisecode } = req.admin;

@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 const { sendEmail } = require("../../../utils/email_Service/sendEmail"); // 📧 Utility to send email
 const OtpEmailTemplate = require("../../../utils/emails_ui/sendUdiseCodeEmailTemplate");
 
-forgotUdisecodeRouter.post("/forgot-udisecode", async (req, res) => {
+forgotUdisecodeRouter.post("/forgot-udisecode", async (req, res,next) => {
   try {
     const { email, password, id, role } = req.body;
     let storedEmail;

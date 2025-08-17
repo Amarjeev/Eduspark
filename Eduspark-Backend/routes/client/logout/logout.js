@@ -7,7 +7,7 @@ const {
 } = require("../../../middleware/verifyToken/verify_token");
 
 //common logout
-clientLogout.post("/logout/:role", async (req, res) => {
+clientLogout.post("/logout/:role", async (req, res,next) => {
   try {
     const { role } = req.params;
 

@@ -13,7 +13,7 @@ const Admin = require("../../../../models/admin");
 announcementsRouter.post(
   "/announcements-create",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { date, message } = req.body;
       const { udisecode, schoolname, email } = req.admin;
@@ -49,7 +49,7 @@ announcementsRouter.post(
 announcementsRouter.get(
   "/announcements-get/:pagecount/:date/:role",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { role } = req.params;
       const { udisecode } = req[role];
@@ -83,7 +83,7 @@ announcementsRouter.get(
 announcementsRouter.put(
   "/announcements-edit/:id",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { id } = req.params;
       const { date, message } = req.body;
@@ -122,7 +122,7 @@ announcementsRouter.put(
 announcementsRouter.delete(
   "/announcements-delete/:id",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { id } = req.params;
 

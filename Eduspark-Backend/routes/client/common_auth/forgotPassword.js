@@ -10,7 +10,7 @@ const { sendEmail } = require("../../../utils/email_Service/sendEmail");
 const OtpEmailTemplate = require("../../../utils/emails_ui/password-reset_OTPEmailTemplate");
 
 // 📩 Route to handle password recovery for all roles (admin, teacher, student, parent)
-forgotPasswordRouter.post("/forgot-password/:role", async (req, res) => {
+forgotPasswordRouter.post("/forgot-password/:role", async (req, res,next) => {
   try {
     const userRole = req.params.role?.toLowerCase(); // 🔍 Get role from URL param
     const { email, enterdOtp, id, newPassword, confirmPassword } = req.body; // 📥 Destructure request body

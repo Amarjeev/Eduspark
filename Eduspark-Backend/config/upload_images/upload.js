@@ -16,7 +16,7 @@ uploadImageRouter.post(
   "/upload-image/:role",
   verifyTokenByRole(),
   upload.single("image"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { role } = req.params;
       const { udisecode, _id } = req[role];

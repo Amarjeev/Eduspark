@@ -11,7 +11,7 @@ const bcrypt = require("bcrypt");
 editTeacherProfile.get(
   "/admin/teachers/:status",
   verifyTokenByRole("admin"), // Admin authentication middleware
-  async (req, res) => {
+  async (req, res,next) => {
     const { udisecode } = req.admin;
     const { status } = req.params;
 
@@ -47,7 +47,7 @@ editTeacherProfile.put(
   "/admin/update-teacher/:id",
   verifyTokenByRole("admin"), // Admin authentication middleware
   validateTeacherForm("update"), // Validate request body
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { id } = req.params;
       const teacherData = req.body;
@@ -90,7 +90,7 @@ editTeacherProfile.put(
 editTeacherProfile.delete(
   "/admin/delete-teacher/:id/:status",
   verifyTokenByRole("admin"), // 🔒 Admin authentication middleware
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { id, status } = req.params;
 
@@ -129,7 +129,7 @@ editTeacherProfile.delete(
 editTeacherProfile.put(
   "/teacher-avatar/update-teacher-profile/:id/:item",
   verifyTokenByRole("teacher"), // Teacher authentication middleware
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { id, item } = req.params;
       const { udisecode } = req.teacher;

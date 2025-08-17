@@ -12,7 +12,7 @@ const validateTimetableEntry = require("../../../../validators/validateTimetable
 timetableConfig.get(
   "/admin/data/teacher/:id",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     const { id } = req.params;
     const { udisecode } = req.admin;
 
@@ -51,7 +51,7 @@ timetableConfig.post(
   "/admin/timetable/save",
   verifyTokenByRole("admin"),
   validateTimetableEntry,
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const timetableData = req.body.entries;
       const { udisecode, schoolname } = req.admin;

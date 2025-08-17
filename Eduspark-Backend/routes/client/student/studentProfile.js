@@ -9,7 +9,7 @@ const {
 studentProfileRouter.get(
   "/profile/:id/:studentId",
   verifyTokenByRole("parents"),
-  async (req, res) => {
+  async (req, res,next) => {
     // 🧑‍🎓 Get parent details from verified token
     const { email, udisecode } = req.parents;
     const { id, studentId } = req.params;

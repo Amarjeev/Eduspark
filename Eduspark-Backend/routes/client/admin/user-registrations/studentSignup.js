@@ -28,7 +28,7 @@ studentSignupRoute.post(
   "/admin/student/signup",
   verifyTokenByRole("admin"),
   validateStudentForm,
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { udisecode, schoolname } = req.admin;
       const studentData = req.body;

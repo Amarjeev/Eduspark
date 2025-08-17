@@ -5,7 +5,7 @@ const { verifyTokenByRole } = require("../verifyToken/verify_token");
 sessionVerifyRoute.get(
   "/verify-role-session/:role",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { role } = req.params;
 

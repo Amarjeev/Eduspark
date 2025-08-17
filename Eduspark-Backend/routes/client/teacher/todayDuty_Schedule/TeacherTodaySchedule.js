@@ -11,7 +11,7 @@ const {
 teacherDutyScheduleRouter.get(
   "/teachers/duties/today",
   verifyTokenByRole("teacher"),
-  async (req, res) => {
+  async (req, res,next) => {
     const { udisecode, employid } = req.teacher;
     try {
       const response = await timetableSchema.aggregate([

@@ -14,7 +14,7 @@ const {
 editStudentProfileRouter.get(
   "/admin/student-list/:selectedClass",
   verifyTokenByRole("admin"), // ✅ Only admin role can access this route
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { selectedClass } = req.params; // Class name from URL
       const { udisecode } = req.admin; // UDISE code from admin token
@@ -42,7 +42,7 @@ editStudentProfileRouter.post(
   "/admin/student-profile/edit",
   verifyTokenByRole("admin"), // ✅ Only admin can update student profile
   validateStudentForm, // ✅ Validate input data using custom validator
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const editedData = req.body; // ✅ Edited student data from frontend
       const id = editedData._id; // ✅ Student's MongoDB ID
@@ -83,7 +83,7 @@ editStudentProfileRouter.post(
 editStudentProfileRouter.delete(
   "/admin/student/:status/:id",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { id, status } = req.params;
 

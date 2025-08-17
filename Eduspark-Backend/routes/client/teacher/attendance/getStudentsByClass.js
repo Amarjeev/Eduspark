@@ -8,7 +8,7 @@ const {
 getStudentsByClassRouter.get(
   "/students/by-class/:className",
   verifyTokenByRole("teacher"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { className } = req.params;
       const { udisecode } = req.teacher;

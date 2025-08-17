@@ -16,7 +16,7 @@ const redisClient = require("../../../../config/redis/redisClient");
 addStudentFeeRouter.get(
   "/admin/student-profile/:studentId",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { studentId } = req.params;
       const { udisecode } = req.admin;
@@ -123,7 +123,7 @@ addStudentFeeRouter.post(
   "/admin/student-fees",
   verifyTokenByRole("admin"),
   validateStudentFee,
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { udisecode, schoolname } = req.admin;
 

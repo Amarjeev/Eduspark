@@ -11,7 +11,7 @@ assignHomeworkRouter.post(
   "/homework/assign",
   verifyTokenByRole("teacher"),
   validateHomework,
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { className, subject, createdAt, deadline, content } = req.body;
       const { udisecode, employid, name } = req.teacher;

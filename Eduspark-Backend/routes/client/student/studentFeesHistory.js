@@ -8,7 +8,7 @@ const {
 studentFeesHistoryRouter.get(
   "/get/student-fees/History/:role",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { role } = req.params;
       const { employid, className, udisecode } = req[role];

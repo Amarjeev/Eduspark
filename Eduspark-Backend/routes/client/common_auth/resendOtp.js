@@ -10,7 +10,7 @@ const OtpEmailTemplate = require("../../../utils/emails_ui/login_OTPEmailTemplat
  * 🔁 Purpose: Resend a fresh OTP to user via email (based on role)
  * 🔐 OTP is stored in Redis for 3 minutes (180 seconds)
  */
-resendOtpRouter.post("/:role/resend-otp", async (req, res) => {
+resendOtpRouter.post("/:role/resend-otp", async (req, res,next) => {
   try {
     const { role } = req.params;
     const { email } = req.body;

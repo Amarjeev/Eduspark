@@ -8,7 +8,7 @@ const {
 teacherAccessServiceRouter.post(
   "/admin/teacher-access/:status",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { status } = req.params;
       const { udisecode } = req.admin;

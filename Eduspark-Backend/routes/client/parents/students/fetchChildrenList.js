@@ -16,7 +16,7 @@ const studentSchema = require("../../../../models/student");
 fetchChildrenListRouter.get(
   "/parents/get-studentdata",
   verifyTokenByRole("parent"), // ✅ Ensure the request is from a verified parent
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { studentIds, udisecode, _id } = req.parent;
 
@@ -53,7 +53,7 @@ fetchChildrenListRouter.get(
 fetchChildrenListRouter.get(
   "/students/:studentId/:role",
   verifyTokenByRole(), // ✅ Ensure only parents can access
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { studentId, role } = req.params;
       const { udisecode } = req[role];

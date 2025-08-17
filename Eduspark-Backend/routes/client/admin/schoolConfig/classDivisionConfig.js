@@ -9,7 +9,7 @@ const {
 classDivisionConfig.post(
   "/admin/create-class-division",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     const { udisecode, schoolname } = req.admin; // Extract school info from verified token
     const submittedClassDivisionList = req.body; // Get submitted class-division array from request
 
@@ -91,7 +91,7 @@ classDivisionConfig.post(
 classDivisionConfig.get(
   "/admin/get-class-divisions",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { udisecode } = req.admin;
       const response = await ClassDivisionSchema.findOne(
@@ -109,7 +109,7 @@ classDivisionConfig.get(
 classDivisionConfig.put(
   "/admin/edit-class-division",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     const { udisecode } = req.admin; // Extract school info from verified token
     const { action, newData, currentID } = req.body;
     if (action === "delete") {

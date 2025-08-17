@@ -9,7 +9,7 @@ const {
 studentHomeworkRouter.get(
   "/get-homework/:role",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { studentClassName } = req.query;
       const { role } = req.params;
@@ -51,7 +51,7 @@ studentHomeworkRouter.get(
 studentHomeworkRouter.post(
   "/post-homework/answer/:role",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { role } = req.params;
       const { employid, className, udisecode } = req[role];
@@ -124,7 +124,7 @@ studentHomeworkRouter.post(
 studentHomeworkRouter.get(
   "/get-homework/answer/:role/:id",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { id } = req.params;
 

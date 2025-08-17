@@ -12,7 +12,7 @@ const validateFeeStructure = require("../../../../validators/validateFeeStructur
 schoolFeeStructureRouter.get(
   "/admin/fees/get-structure",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { udisecode } = req.admin;
 
@@ -46,7 +46,7 @@ schoolFeeStructureRouter.post(
   "/admin/fees/save-structure/:status",
   verifyTokenByRole("admin"),
   validateFeeStructure,
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { udisecode } = req.admin;
       const { className, date, totalFee, id } = req.body;
@@ -129,7 +129,7 @@ schoolFeeStructureRouter.post(
 schoolFeeStructureRouter.delete(
   "/admin/fees/delete-structure/:id",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { id } = req.params;
       const { udisecode } = req.admin;

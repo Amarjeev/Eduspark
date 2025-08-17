@@ -10,7 +10,7 @@ const redisClient = require("../../../../config/redis/redisClient");
 getClassStudentsRouter.get(
   "/student/getClassStudents/:className",
   verifyTokenByRole("teacher"),
-  async (req, res) => {
+  async (req, res,next) => {
     const { className } = req.params;
     const { udisecode } = req.teacher;
 

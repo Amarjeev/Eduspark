@@ -10,7 +10,7 @@ const generateToken = require("../../../utils/tokenCreate/token");
  * 🔍 Purpose: Verifies the OTP sent to the user based on their role.
  * ✅ Supports: Parent and Teacher roles.
  */
-otpVerificationRouter.post("/:role/verify-otp", async (req, res) => {
+otpVerificationRouter.post("/:role/verify-otp", async (req, res,next) => {
   try {
     // 🔗 Extract role from params and user data from body
     const { role } = req.params;

@@ -12,7 +12,7 @@ updateStudentAttendanceRouter.post(
   "/teacher/updateStudentAttendance",
   verifyTokenByRole("teacher"), // 🔐 Middleware to verify JWT and role
   validateAttendanceForm, // ✅ Custom validator for attendance data
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       // 📦 Destructure submitted fields from request body
       const {

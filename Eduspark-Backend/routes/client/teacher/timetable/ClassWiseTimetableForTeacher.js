@@ -9,7 +9,7 @@ const redisClient = require("../../../../config/redis/redisClient");
 ClassWiseTTTeacherRouter.get(
   "/teacher/timetable/:className",
   verifyTokenByRole("teacher"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { className } = req.params;
       const { udisecode } = req.teacher;

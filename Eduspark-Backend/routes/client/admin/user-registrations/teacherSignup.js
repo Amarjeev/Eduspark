@@ -17,7 +17,7 @@ teacherSignup.post(
   "/admin/teachers/signup",
   verifyTokenByRole("admin"),
   validateTeacherForm("create"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { udisecode, schoolname } = req.admin;
       // Extract user data from request body

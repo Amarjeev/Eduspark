@@ -11,7 +11,7 @@ const {
 updateProfileDataRouter.post(
   "/:role/change-password",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { currentPassword, newPassword, confirmPassword } = req.body;
       const { role } = req.params;

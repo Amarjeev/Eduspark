@@ -11,7 +11,7 @@ const addExamMarkRoute = express.Router();
 addExamMarkRoute.post(
   "/add-marks/:role",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { studentId } = req.body;
       const { udisecode } = req.admin;
@@ -57,7 +57,7 @@ addExamMarkRoute.post(
   "/add-marks/submit/:role",
   verifyTokenByRole(),
   validateExamMarks,
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { udisecode } = req.admin; // From token
       const { examMark } = req.body; // Submitted data

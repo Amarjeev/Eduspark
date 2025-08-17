@@ -12,7 +12,7 @@ const SubjectsConfig = express.Router();
 SubjectsConfig.post(
   "/admin/subjects/create",
   verifyTokenByRole("admin"), // 🔐 Middleware to ensure the request is from an authenticated admin
-  async (req, res) => {
+  async (req, res,next) => {
     const { subjects, subjectId, status } = req.body; // 📨 Incoming subject list from frontend
     const { udisecode, schoolname } = req.admin; // 🏫 Extracting school details from token
 
@@ -140,7 +140,7 @@ SubjectsConfig.post(
 SubjectsConfig.get(
   "/admin/subjects/get",
   verifyTokenByRole("admin"), // Middleware to validate admin login session
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { udisecode } = req.admin; // Get school identity from token
 

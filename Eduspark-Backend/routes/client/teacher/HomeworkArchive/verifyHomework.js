@@ -17,7 +17,7 @@ const {
 verifyHomeworkRouter.get(
   "/teacher/homework-verification-list",
   verifyTokenByRole("teacher"), // ✅ Verify teacher token
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       // 🧾 Extract filters from query
       const { selectedClass, selectedSubject, selectedDate } = req.query;
@@ -92,7 +92,7 @@ verifyHomeworkRouter.get(
 verifyHomeworkRouter.get(
   "/teacher/homework-answer/:role",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { role } = req.params;
       const { homeworkId, status, studentId } = req.query;
@@ -140,7 +140,7 @@ verifyHomeworkRouter.get(
 verifyHomeworkRouter.post(
   "/homework/verify-submission",
   verifyTokenByRole("teacher"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { udisecode } = req.teacher;
       const data = req.body;

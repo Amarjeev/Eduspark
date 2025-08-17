@@ -12,7 +12,7 @@ const bcrypt = require("bcryptjs");
 adminProfileRouter.post(
   "/admin-profileEdit/:item",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { udisecode, employid } = req.admin;
       const {
@@ -133,7 +133,7 @@ adminProfileRouter.post(
 adminProfileRouter.delete(
   "/admin-delete-account",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { employid, udisecode } = req.admin;
       const { deleteConfirmInput } = req.body;

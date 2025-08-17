@@ -11,7 +11,7 @@ const validateHomework = require("../../../../validators/validateHomework");
 editAndViewHomeworkRouter.get(
   "/teacher/homework",
   verifyTokenByRole("teacher"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       // 📥 Extract filters and pagination from query
       const classList = req.query.classList;
@@ -50,7 +50,7 @@ editAndViewHomeworkRouter.get(
 editAndViewHomeworkRouter.get(
   "/teacher/homework/update/:id",
   verifyTokenByRole("teacher"),
-  async (req, res) => {
+  async (req, res,next) => {
     const { id } = req.params;
 
     try {
@@ -73,7 +73,7 @@ editAndViewHomeworkRouter.put(
   "/teacher/homework/update/:id",
   verifyTokenByRole("teacher"),
   validateHomework, // 🛡️ Middleware: Validate homework data before updating
-  async (req, res) => {
+  async (req, res,next) => {
     const { id } = req.params;
 
     try {

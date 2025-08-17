@@ -14,7 +14,7 @@ const {
 parentSignupRouter.post(
   "/parent/signup",
   validateParentForm,
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { name, email, mobileNumber, password, udisecode } = req.body;
 
@@ -94,7 +94,7 @@ parentSignupRouter.post(
 parentSignupRouter.post(
   "/update/parent-profile",
   verifyTokenByRole("parent"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       let userData = req.body;
       const { _id } = req.parent;

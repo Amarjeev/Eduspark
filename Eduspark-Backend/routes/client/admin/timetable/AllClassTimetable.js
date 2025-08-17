@@ -11,7 +11,7 @@ const teacherSchema = require("../../../../models/teacher");
 getAlltimetableRouter.get(
   "/admin/timetable/all/:role/:classname",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     const { classname, role } = req.params;
     try {
       const { udisecode, className } = req[role];
@@ -38,7 +38,7 @@ getAlltimetableRouter.put(
   "/admin/timetable/edit",
   verifyTokenByRole("admin"),
   validateTimetableEntry,
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { status } = req.params;
       const { day, time, subject, teacherName, teacherId, _id, className } =
@@ -93,7 +93,7 @@ getAlltimetableRouter.put(
 getAlltimetableRouter.delete(
   "/admin/timetable/delete/:id",
   verifyTokenByRole("admin"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { id } = req.params;
       const { udisecode } = req.admin;

@@ -18,7 +18,7 @@ const roleSchemaMap = {
 userProfileRouter.get(
   "/get/:role/user-profile",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { role } = req.params;
 
@@ -53,7 +53,7 @@ userProfileRouter.get(
 userProfileRouter.get(
   "/get/teacher-profile/:role",
   verifyTokenByRole(),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { role } = req.params;
       const { udisecode } = req[role];

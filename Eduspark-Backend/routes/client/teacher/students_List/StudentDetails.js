@@ -16,7 +16,7 @@ const redisClient = require("../../../../config/redis/redisClient");
 studentControllerRouter.get(
   "/student/Mark/:role",
   verifyTokenByRole(), // Middleware to verify teacher's token
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { role } = req.params;
       const { udisecode } = req[role]; // Extract udise code from authenticated teacher
@@ -53,7 +53,7 @@ studentControllerRouter.get(
 studentControllerRouter.get(
   "/student/attendance-history/:role",
   verifyTokenByRole(), // Middleware to verify teacher's token
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { role } = req.params;
       const { udisecode } = req[role]; // Extract udise code

@@ -1,26 +1,26 @@
-const ses = require("../../config/email/awsSES");
+const SibApiV3Sdk = require("sib-api-v3-sdk");
 
-const sendEmail = async (to, subject, messageText, htmlContent) => {
-  const params = {
-    Source: process.env.SES_SENDER_EMAIL,
-    Destination: {
-      ToAddresses: [to],
+const sendEmail = async (to, subject, text, html, toName) => {
+  const client = SibApiV3Sdk.ApiClient.instance;
+  client.authentications["api-key"].apiKey = process.env.BREVO_API_KEY;
+
+  const tranEmailApi = new SibApiV3Sdk.TransactionalEmailsApi();
+
+  const sendSmtpEmail = {
+    sender: { 
+      email: process.env.BREVO_SENDER_EMAIL,
+      name: "EduSpark" 
     },
-    Message: {
-      Subject: { Data: subject },
-      Body: {
-        Text: { Data: messageText },
-        Html: { Data: htmlContent },
-      },
-    },
+    to: toName ? [{ email: to, name: toName }] : [{ email: to }],
+    subject,
+    textContent: text,
+    htmlContent: html
   };
 
-
   try {
-    const result = await ses.sendEmail(params).promise();
-    return result;
+    await tranEmailApi.sendTransacEmail(sendSmtpEmail);
   } catch (error) {
-    throw error;
+    throw new Error("Email delivery failed in production");
   }
 };
 

@@ -9,7 +9,7 @@ const {
 attendanceHistoryRouter.get(
   "/attendance/history",
   verifyTokenByRole("teacher"),
-  async (req, res) => {
+  async (req, res,next) => {
     try {
       const { date, className, status } = req.query;
       const { udisecode } = req.teacher;

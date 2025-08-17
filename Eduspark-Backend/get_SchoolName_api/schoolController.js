@@ -11,7 +11,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 // Define GET route for fetching school info by UDISE code
-searchSchool.get("/search/schools/:code", async (req, res) => {
+searchSchool.get("/search/schools/:code", async (req, res,next) => {
   const { code } = req.params; // Extract the UDISE code from the URL
 
   try {

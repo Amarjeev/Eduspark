@@ -17,7 +17,7 @@ const roleSchemaMap = {
 };
 
 // ✅ Route to login teacher (first step before OTP verification)
-LoginRouter.post("/:role/auth/login", async (req, res) => {
+LoginRouter.post("/:role/auth/login", async (req, res,next) => {
   try {
     // 📨 Extract login credentials from request body
     const { email, password, uidsecode } = req.body;
@@ -82,7 +82,7 @@ LoginRouter.post("/:role/auth/login", async (req, res) => {
 });
 
 //checking entry page udise code  is valid or existe in db
-LoginRouter.post("/check-udisecode", async (req, res) => {
+LoginRouter.post("/check-udisecode", async (req, res,next) => {
   const { udisecode } = req.body;
 
   try {
