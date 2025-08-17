@@ -1,38 +1,37 @@
-# EduSpark - School Management Platform
+# EduSpark – School Management Platform
 
-## 👤 Author  
-**Name:** Amarjeev  
+## Author  
+**Amarjeev**  
 
-## 📌 Project Description  
+## Project Overview  
 EduSpark is a **School Management Platform** built with the MERN stack.  
-It provides **secure authentication, admin & student management, email notifications**, and a scalable architecture with professional frontend and backend.  
+It provides **secure authentication, admin and student management, email notifications**, and a scalable architecture with a professional frontend and backend.  
 
 ---
 
-## ⚙️ Tech Stack  
+## Tech Stack  
 
-### Backend  
-- Node.js  
-- Express.js  
+**Backend:**  
+- Node.js & Express.js  
 - MongoDB Atlas  
 - Brevo (Email service)  
 - AWS EC2 (Deployment)  
 
-### Frontend  
+**Frontend:**  
 - React.js  
 - Tailwind CSS  
-- Axios (for API calls)  
+- Axios (API communication)  
 - AWS S3 (Hosting & Image Storage)  
 - Cloudflare (Domain & DNS)  
 
 ---
 
-## 🚀 Features  
+## Key Features  
 - Admin & Superadmin authentication  
-- Email notifications using Brevo  
+- Email notifications via Brevo  
 - Student profile & data management  
 - Exam marks entry and retrieval  
-- Profile image upload stored on **AWS S3**  
+- Profile image uploads stored on **AWS S3**  
 - Secure backend with environment variables  
 - Backend deployed on **AWS EC2**  
 - Frontend hosted on **AWS S3 bucket**  
@@ -40,11 +39,11 @@ It provides **secure authentication, admin & student management, email notificat
 
 ---
 
-## 🌐 Deployment Details  
+## Deployment Details  
 
-### Backend (AWS EC2)  
-1. Node.js + Express APIs running on **AWS EC2**  
-2. Connected to **MongoDB Atlas**  
+**Backend (AWS EC2):**  
+1. Node.js + Express APIs running on AWS EC2  
+2. Connected to MongoDB Atlas  
 3. Environment variables:  
    ```env
    MONGO_URI=your_mongo_connection_string
